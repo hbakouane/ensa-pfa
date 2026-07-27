@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Searchable;
-
 class JobPosting extends Model
 {
-    use BelongsToCompany, HasFactory, Searchable, SoftDeletes;
+    use BelongsToCompany, HasFactory, SoftDeletes;
 
     protected $table = 'job_postings';
 
@@ -118,15 +116,4 @@ class JobPosting extends Model
         return $this->status === 'draft';
     }
 
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'employment_type' => $this->employment_type,
-            'experience_level' => $this->experience_level,
-            'status' => $this->status,
-        ];
-    }
 }

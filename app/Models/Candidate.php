@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Searchable;
 
 class Candidate extends Model
 {
-    use HasFactory, Searchable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -74,22 +73,4 @@ class Candidate extends Model
         return $this->hasMany(Application::class);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Searchable
-    |--------------------------------------------------------------------------
-    */
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'headline' => $this->headline,
-            'summary' => $this->summary,
-            'location' => $this->location,
-        ];
-    }
 }
