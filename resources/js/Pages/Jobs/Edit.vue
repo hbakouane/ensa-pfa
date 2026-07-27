@@ -42,6 +42,7 @@ const employmentTypeOptions = [
     { value: 'contract', label: 'CDD' },
     { value: 'internship', label: 'Stage' },
     { value: 'temporary', label: 'Temporaire' },
+    { value: 'freelance', label: 'Freelance' },
 ];
 
 const experienceLevelOptions = [

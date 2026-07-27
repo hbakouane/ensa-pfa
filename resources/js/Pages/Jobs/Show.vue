@@ -24,6 +24,7 @@ const employmentLabels = {
     contract: 'CDD',
     internship: 'Stage',
     temporary: 'Temporaire',
+    freelance: 'Freelance',
 };
 
 const experienceLabels = {

@@ -34,7 +34,7 @@ class BillingController extends Controller
             'currentPlan' => $currentPlan,
             'usage' => $usage,
             'subscription' => $subscription,
-            'intent' => fn () => $company->createSetupIntent(),
+            'intent' => fn () => config('cashier.secret') ? $company->createSetupIntent() : null,
         ]);
     }
 
