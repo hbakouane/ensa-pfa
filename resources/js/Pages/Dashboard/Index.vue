@@ -9,33 +9,33 @@ const company = computed(() => page.props.auth?.company ?? {});
 
 const stats = [
     {
-        label: 'Open Jobs',
+        label: 'Offres ouvertes',
         value: '12',
-        change: '+3 this week',
+        change: '+3 cette semaine',
         changeType: 'positive',
         icon: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m8 0H8m8 0h2a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h2',
         color: 'indigo',
     },
     {
-        label: 'Active Candidates',
+        label: 'Candidats actifs',
         value: '284',
-        change: '+18 this week',
+        change: '+18 cette semaine',
         changeType: 'positive',
         icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
         color: 'emerald',
     },
     {
-        label: 'Interviews Today',
+        label: "Entretiens aujourd'hui",
         value: '5',
-        change: '2 remaining',
+        change: '2 restants',
         changeType: 'neutral',
         icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
         color: 'amber',
     },
     {
-        label: 'Avg. Time to Hire',
-        value: '24d',
-        change: '-3 days vs last month',
+        label: "Délai moyen d'embauche",
+        value: '24j',
+        change: '-3 jours vs mois dernier',
         changeType: 'positive',
         icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
         color: 'violet',
@@ -71,14 +71,14 @@ const colorClasses = {
         <!-- Welcome header -->
         <div class="mb-8">
             <h1 class="text-2xl font-bold text-slate-900">
-                Welcome back, {{ user.name?.split(' ')[0] ?? 'there' }}
+                Bienvenue, {{ user.name?.split(' ')[0] ?? '' }}
             </h1>
             <p class="mt-1 text-sm text-slate-500">
-                Here's what's happening at
+                Voici ce qui se passe chez
                 <span class="font-medium text-slate-700">
-                    {{ company.name ?? 'your company' }}
+                    {{ company.name ?? 'votre entreprise' }}
                 </span>
-                today.
+                aujourd'hui.
             </p>
         </div>
 
@@ -149,13 +149,13 @@ const colorClasses = {
                 class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
             >
                 <h2 class="text-lg font-semibold text-slate-900">
-                    Recent Activity
+                    Activité récente
                 </h2>
                 <div
                     class="mt-4 flex h-48 items-center justify-center rounded-lg border-2 border-dashed border-slate-200"
                 >
                     <p class="text-sm text-slate-400">
-                        Activity feed coming soon
+                        Fil d'activité bientôt disponible
                     </p>
                 </div>
             </div>
@@ -165,13 +165,13 @@ const colorClasses = {
                 class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
             >
                 <h2 class="text-lg font-semibold text-slate-900">
-                    Upcoming Interviews
+                    Entretiens à venir
                 </h2>
                 <div
                     class="mt-4 flex h-48 items-center justify-center rounded-lg border-2 border-dashed border-slate-200"
                 >
                     <p class="text-sm text-slate-400">
-                        Interview schedule coming soon
+                        Calendrier des entretiens bientôt disponible
                     </p>
                 </div>
             </div>

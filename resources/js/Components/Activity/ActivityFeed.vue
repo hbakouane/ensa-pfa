@@ -74,12 +74,12 @@ function formatTimeAgo(dateString) {
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
 
-    if (diffSecs < 60) return 'just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
+    if (diffSecs < 60) return 'à l\'instant';
+    if (diffMins < 60) return `il y a ${diffMins}m`;
+    if (diffHours < 24) return `il y a ${diffHours}h`;
+    if (diffDays < 7) return `il y a ${diffDays}j`;
 
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
         year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined,
@@ -99,7 +99,7 @@ async function fetchActivities() {
         });
         activities.value = response.data.data ?? response.data ?? [];
     } catch (err) {
-        error.value = 'Failed to load activities.';
+        error.value = 'Impossible de charger les activités.';
         console.error('ActivityFeed: Error fetching activities', err);
     } finally {
         loading.value = false;
@@ -114,7 +114,7 @@ onMounted(() => {
 <template>
     <div>
         <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Activity
+            Activité
         </h3>
 
         <!-- Loading -->
@@ -123,7 +123,7 @@ onMounted(() => {
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <span class="ml-2 text-sm text-slate-500">Loading activities...</span>
+            <span class="ml-2 text-sm text-slate-500">Chargement des activités...</span>
         </div>
 
         <!-- Error -->
@@ -133,7 +133,7 @@ onMounted(() => {
                 class="mt-2 text-xs font-medium text-red-700 underline hover:no-underline"
                 @click="fetchActivities"
             >
-                Retry
+                Réessayer
             </button>
         </div>
 
@@ -174,7 +174,7 @@ onMounted(() => {
                         <div class="flex-1 min-w-0 pb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-medium text-slate-900">
-                                    {{ activity.user?.name ?? 'System' }}
+                                    {{ activity.user?.name ?? 'Système' }}
                                 </span>
                                 <span class="text-xs text-slate-400">
                                     {{ formatTimeAgo(activity.created_at) }}
@@ -194,7 +194,7 @@ onMounted(() => {
             <svg class="h-8 w-8 text-slate-200" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p class="mt-2 text-sm text-slate-400">No activity recorded yet.</p>
+            <p class="mt-2 text-sm text-slate-400">Aucune activité enregistrée pour le moment.</p>
         </div>
     </div>
 </template>

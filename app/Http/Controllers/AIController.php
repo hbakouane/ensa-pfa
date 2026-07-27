@@ -23,7 +23,7 @@ class AIController extends Controller
         ParseResumeJob::dispatch($candidate->id);
 
         return response()->json([
-            'message' => 'Resume parsing job has been dispatched.',
+            'message' => 'Analyse du CV lancée.',
             'job_dispatched' => true,
         ]);
     }
@@ -36,7 +36,7 @@ class AIController extends Controller
         ScoreCandidateJob::dispatch($application->id);
 
         return response()->json([
-            'message' => 'Candidate scoring job has been dispatched.',
+            'message' => 'Évaluation du candidat lancée.',
             'job_dispatched' => true,
         ]);
     }
@@ -49,7 +49,7 @@ class AIController extends Controller
         BulkScoreCandidatesJob::dispatch($job->id);
 
         return response()->json([
-            'message' => 'Bulk scoring job has been dispatched for all applications.',
+            'message' => 'Évaluation groupée lancée pour toutes les candidatures.',
             'job_dispatched' => true,
         ]);
     }
@@ -62,7 +62,7 @@ class AIController extends Controller
         GenerateCandidateSummaryJob::dispatch($candidate->id);
 
         return response()->json([
-            'message' => 'Candidate summary generation job has been dispatched.',
+            'message' => 'Génération du résumé du candidat lancée.',
             'job_dispatched' => true,
         ]);
     }
@@ -77,7 +77,7 @@ class AIController extends Controller
         GenerateInterviewQuestionsJob::dispatch($application->id, (int) $count);
 
         return response()->json([
-            'message' => 'Interview question generation job has been dispatched.',
+            'message' => 'Génération des questions d\'entretien lancée.',
             'job_dispatched' => true,
         ]);
     }

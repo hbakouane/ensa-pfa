@@ -35,10 +35,10 @@ const form = useForm({
 });
 
 const typeOptions = [
-    { value: 'phone', label: 'Phone Screen' },
-    { value: 'video', label: 'Video Call' },
-    { value: 'onsite', label: 'On-Site' },
-    { value: 'technical', label: 'Technical' },
+    { value: 'phone', label: 'Entretien téléphonique' },
+    { value: 'video', label: 'Appel vidéo' },
+    { value: 'onsite', label: 'En personne' },
+    { value: 'technical', label: 'Technique' },
     { value: 'panel', label: 'Panel' },
 ];
 
@@ -46,9 +46,9 @@ const durationOptions = [
     { value: 15, label: '15 minutes' },
     { value: 30, label: '30 minutes' },
     { value: 45, label: '45 minutes' },
-    { value: 60, label: '1 hour' },
-    { value: 90, label: '1.5 hours' },
-    { value: 120, label: '2 hours' },
+    { value: 60, label: '1 heure' },
+    { value: 90, label: '1h30' },
+    { value: 120, label: '2 heures' },
 ];
 
 function toggleInterviewer(memberId) {
@@ -95,15 +95,15 @@ function close() {
 <template>
     <Modal :show="show" max-width="2xl" @close="close">
         <template #title>
-            <h2 class="text-lg font-semibold text-slate-900">Schedule Interview</h2>
+            <h2 class="text-lg font-semibold text-slate-900">Planifier un entretien</h2>
         </template>
 
         <form @submit.prevent="submit" class="space-y-5">
             <!-- Title -->
             <Input
                 v-model="form.title"
-                label="Interview Title"
-                placeholder="e.g. First Round Technical Interview"
+                label="Titre de l'entretien"
+                placeholder="ex. Premier entretien technique"
                 :error="form.errors.title"
                 required
             />
@@ -112,14 +112,14 @@ function close() {
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Select
                     v-model="form.type"
-                    label="Interview Type"
+                    label="Type d'entretien"
                     :options="typeOptions"
                     :error="form.errors.type"
                     required
                 />
                 <Select
                     v-model="form.duration_minutes"
-                    label="Duration"
+                    label="Durée"
                     :options="durationOptions"
                     :error="form.errors.duration_minutes"
                     required
@@ -129,7 +129,7 @@ function close() {
             <!-- Date/Time -->
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-slate-700">
-                    Date & Time
+                    Date et heure
                     <span class="text-red-500">*</span>
                 </label>
                 <input
@@ -147,15 +147,15 @@ function close() {
             <!-- Location -->
             <Input
                 v-model="form.location"
-                label="Location"
-                placeholder="e.g. Conference Room A, 3rd Floor"
+                label="Lieu"
+                placeholder="ex. Salle de réunion A, 3e étage"
                 :error="form.errors.location"
             />
 
             <!-- Meeting URL -->
             <Input
                 v-model="form.meeting_url"
-                label="Meeting URL"
+                label="URL de la réunion"
                 type="url"
                 placeholder="e.g. https://meet.google.com/abc-defg-hij"
                 :error="form.errors.meeting_url"
@@ -164,7 +164,7 @@ function close() {
             <!-- Interviewers -->
             <div>
                 <label class="mb-1.5 block text-sm font-medium text-slate-700">
-                    Interviewers
+                    Intervieweurs
                 </label>
                 <div v-if="teamMembers.length > 0" class="max-h-48 space-y-2 overflow-y-auto rounded-lg border border-slate-200 p-3">
                     <label
@@ -189,7 +189,7 @@ function close() {
                     </label>
                 </div>
                 <p v-else class="text-sm text-slate-500">
-                    No team members available.
+                    Aucun membre d'équipe disponible.
                 </p>
                 <p v-if="form.errors.interviewer_ids" class="mt-1.5 text-xs text-red-600">
                     {{ form.errors.interviewer_ids }}
@@ -202,7 +202,7 @@ function close() {
                 <textarea
                     v-model="form.notes"
                     rows="3"
-                    placeholder="Any additional notes or instructions for the interview..."
+                    placeholder="Notes ou instructions supplémentaires pour l'entretien..."
                     class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 />
                 <p v-if="form.errors.notes" class="mt-1.5 text-xs text-red-600">
@@ -214,7 +214,7 @@ function close() {
         <template #footer>
             <div class="flex items-center justify-end gap-3">
                 <Button variant="secondary" @click="close">
-                    Cancel
+                    Annuler
                 </Button>
                 <Button
                     variant="primary"
@@ -222,7 +222,7 @@ function close() {
                     :disabled="form.processing"
                     @click="submit"
                 >
-                    Schedule Interview
+                    Planifier l'entretien
                 </Button>
             </div>
         </template>

@@ -30,7 +30,7 @@ const isOnGracePeriod = computed(() => {
 });
 
 function cancelSubscription() {
-    if (!confirm('Are you sure you want to cancel your subscription? You will retain access until the end of the current billing period.')) {
+    if (!confirm('Êtes-vous sûr de vouloir résilier votre abonnement ? Vous conserverez l\'accès jusqu\'à la fin de la période de facturation en cours.')) {
         return;
     }
 
@@ -47,7 +47,7 @@ function resumeSubscription() {
 
 function formatDate(dateStr) {
     if (!dateStr) return '-';
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
@@ -57,18 +57,18 @@ function formatDate(dateStr) {
 
 <template>
     <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 class="mb-4 text-lg font-semibold text-slate-900">Subscription</h2>
+        <h2 class="mb-4 text-lg font-semibold text-slate-900">Abonnement</h2>
 
         <!-- No subscription -->
         <div v-if="!subscription" class="text-sm text-slate-500">
-            <p>You are currently on the free plan. Subscribe to a paid plan to unlock more features.</p>
+            <p>Vous êtes actuellement sur le forfait gratuit. Abonnez-vous à un forfait payant pour débloquer plus de fonctionnalités.</p>
         </div>
 
         <!-- Active subscription -->
         <div v-else>
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-sm text-slate-500">Status</span>
+                    <span class="text-sm text-slate-500">Statut</span>
                     <span
                         class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
                         :class="{
@@ -77,9 +77,9 @@ function formatDate(dateStr) {
                             'bg-red-100 text-red-700': isCancelled && !isOnGracePeriod,
                         }"
                     >
-                        <template v-if="isActive">Active</template>
-                        <template v-else-if="isOnGracePeriod">Cancelling</template>
-                        <template v-else>Cancelled</template>
+                        <template v-if="isActive">Actif</template>
+                        <template v-else-if="isOnGracePeriod">En cours de résiliation</template>
+                        <template v-else>Résilié</template>
                     </span>
                 </div>
 

@@ -40,14 +40,14 @@ class CommentController extends Controller
         // Broadcast event
         event(new CommentAdded($comment));
 
-        return back()->with('success', 'Comment added.');
+        return back()->with('success', 'Commentaire ajouté.');
     }
 
     public function destroy(Comment $comment)
     {
         $comment->delete();
 
-        return back()->with('success', 'Comment deleted.');
+        return back()->with('success', 'Commentaire supprimé.');
     }
 
     /**

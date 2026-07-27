@@ -27,7 +27,7 @@ function handleImageError() {
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Bienvenue" />
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <img
             id="background"
@@ -60,7 +60,7 @@ function handleImageError() {
                             :href="route('dashboard')"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
-                            Dashboard
+                            Tableau de bord
                         </Link>
 
                         <template v-else>
@@ -68,7 +68,7 @@ function handleImageError() {
                                 :href="route('login')"
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                             >
-                                Log in
+                                Se connecter
                             </Link>
 
                             <Link
@@ -76,7 +76,7 @@ function handleImageError() {
                                 :href="route('register')"
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                             >
-                                Register
+                                S'inscrire
                             </Link>
                         </template>
                     </nav>
@@ -144,13 +144,13 @@ function handleImageError() {
                                         </h2>
 
                                         <p class="mt-4 text-sm/relaxed">
-                                            Laravel has wonderful documentation
-                                            covering every aspect of the
-                                            framework. Whether you are a
-                                            newcomer or have prior experience
-                                            with Laravel, we recommend reading
-                                            our documentation from beginning to
-                                            end.
+                                            Laravel dispose d'une documentation
+                                            complète couvrant chaque aspect du
+                                            framework. Que vous soyez débutant
+                                            ou que vous ayez déjà de l'expérience
+                                            avec Laravel, nous vous recommandons
+                                            de lire notre documentation du début
+                                            à la fin.
                                         </p>
                                     </div>
                                 </div>
@@ -200,11 +200,11 @@ function handleImageError() {
                                 </h2>
 
                                 <p class="mt-4 text-sm/relaxed">
-                                    Laracasts offers thousands of video
-                                    tutorials on Laravel, PHP, and JavaScript
-                                    development. Check them out, see for
-                                    yourself, and massively level up your
-                                    development skills in the process.
+                                    Laracasts propose des milliers de tutoriels
+                                    vidéo sur le développement Laravel, PHP et
+                                    JavaScript. Découvrez-les par vous-même et
+                                    améliorez considérablement vos compétences
+                                    en développement.
                                 </p>
                             </div>
 
@@ -258,11 +258,12 @@ function handleImageError() {
                                 </h2>
 
                                 <p class="mt-4 text-sm/relaxed">
-                                    Laravel News is a community driven portal
-                                    and newsletter aggregating all of the latest
-                                    and most important news in the Laravel
-                                    ecosystem, including new package releases
-                                    and tutorials.
+                                    Laravel News est un portail communautaire
+                                    et une newsletter regroupant toutes les
+                                    dernières nouvelles et les plus importantes
+                                    de l'écosystème Laravel, y compris les
+                                    nouvelles versions de packages et les
+                                    tutoriels.
                                 </p>
                             </div>
 
@@ -305,12 +306,12 @@ function handleImageError() {
                                 <h2
                                     class="text-xl font-semibold text-black dark:text-white"
                                 >
-                                    Vibrant Ecosystem
+                                    Écosystème dynamique
                                 </h2>
 
                                 <p class="mt-4 text-sm/relaxed">
-                                    Laravel's robust library of first-party
-                                    tools and libraries, such as
+                                    La riche bibliothèque d'outils et de
+                                    librairies propriétaires de Laravel, tels que
                                     <a
                                         href="https://forge.laravel.com"
                                         class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white dark:focus-visible:ring-[#FF2D20]"
@@ -330,15 +331,15 @@ function handleImageError() {
                                         href="https://envoyer.io"
                                         class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
                                         >Envoyer</a
-                                    >, and
+                                    >, et
                                     <a
                                         href="https://herd.laravel.com"
                                         class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
                                         >Herd</a
                                     >
-                                    help you take your projects to the next
-                                    level. Pair them with powerful open source
-                                    libraries like
+                                    vous aident à porter vos projets au niveau
+                                    supérieur. Associez-les à de puissantes
+                                    bibliothèques open source comme
                                     <a
                                         href="https://laravel.com/docs/billing"
                                         class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
@@ -368,7 +369,7 @@ function handleImageError() {
                                         href="https://laravel.com/docs/telescope"
                                         class="rounded-sm underline hover:text-black focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FF2D20] dark:hover:text-white"
                                         >Telescope</a
-                                    >, and more.
+                                    >, et bien plus encore.
                                 </p>
                             </div>
                         </div>

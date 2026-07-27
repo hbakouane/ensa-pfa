@@ -18,13 +18,13 @@ defineProps({
             <div class="flex items-center justify-between">
                 <div>
                     <div class="flex items-center gap-2 text-sm text-slate-500">
-                        <Link :href="route('jobs.index')" class="hover:text-indigo-600">Jobs</Link>
+                        <Link :href="route('jobs.index')" class="hover:text-indigo-600">Offres d'emploi</Link>
                         <span>/</span>
                         <Link :href="route('jobs.show', job.id)" class="hover:text-indigo-600">{{ job.title }}</Link>
                         <span>/</span>
-                        <span class="text-slate-700">Pipeline</span>
+                        <span class="text-slate-700">Pipeline</span><!-- Pipeline is same in French -->
                     </div>
-                    <h1 class="mt-1 text-2xl font-bold text-slate-900">{{ job.title }} Pipeline</h1>
+                    <h1 class="mt-1 text-2xl font-bold text-slate-900">Pipeline - {{ job.title }}</h1>
                 </div>
 
                 <div class="flex items-center gap-3">

@@ -33,7 +33,7 @@ class OfferResponseController extends Controller
         $offer = Offer::where('token', $token)->firstOrFail();
 
         if (! $offer->canBeResponded()) {
-            return back()->with('error', 'This offer can no longer be responded to.');
+            return back()->with('error', 'Cette offre ne peut plus recevoir de réponse.');
         }
 
         $validated = $request->validate([
@@ -53,8 +53,8 @@ class OfferResponseController extends Controller
         }
 
         $message = $validated['decision'] === 'accepted'
-            ? 'Congratulations! You have accepted the offer.'
-            : 'You have declined the offer.';
+            ? 'Félicitations ! Vous avez accepté l\'offre.'
+            : 'Vous avez refusé l\'offre.';
 
         return redirect()->route('offers.respond', $token)
             ->with('success', $message);

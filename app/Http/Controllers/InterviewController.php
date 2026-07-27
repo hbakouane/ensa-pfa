@@ -61,7 +61,7 @@ class InterviewController extends Controller
 
         $action->execute($validated);
 
-        return back()->with('success', 'Interview scheduled successfully.');
+        return back()->with('success', 'Entretien planifié avec succès.');
     }
 
     public function update(Interview $interview, Request $request)
@@ -80,7 +80,7 @@ class InterviewController extends Controller
 
         $interview->update($validated);
 
-        return back()->with('success', 'Interview updated successfully.');
+        return back()->with('success', 'Entretien mis à jour avec succès.');
     }
 
     public function destroy(Interview $interview)
@@ -88,6 +88,6 @@ class InterviewController extends Controller
         $interview->update(['status' => 'cancelled']);
         $interview->delete();
 
-        return back()->with('success', 'Interview cancelled successfully.');
+        return back()->with('success', 'Entretien annulé avec succès.');
     }
 }

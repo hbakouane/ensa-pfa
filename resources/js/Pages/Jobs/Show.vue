@@ -19,25 +19,25 @@ const statusBadge = {
 };
 
 const employmentLabels = {
-    full_time: 'Full Time',
-    part_time: 'Part Time',
-    contract: 'Contract',
-    internship: 'Internship',
-    temporary: 'Temporary',
+    full_time: 'Temps plein',
+    part_time: 'Temps partiel',
+    contract: 'CDD',
+    internship: 'Stage',
+    temporary: 'Temporaire',
 };
 
 const experienceLabels = {
-    entry: 'Entry Level',
-    mid: 'Mid Level',
-    senior: 'Senior Level',
+    entry: 'Débutant',
+    mid: 'Intermédiaire',
+    senior: 'Senior',
     lead: 'Lead',
-    executive: 'Executive',
+    executive: 'Dirigeant',
 };
 
 const remotePolicyLabels = {
-    onsite: 'On-site',
-    remote: 'Remote',
-    hybrid: 'Hybrid',
+    onsite: 'Sur site',
+    remote: 'Télétravail',
+    hybrid: 'Hybride',
 };
 
 const skills = computed(() => {
@@ -62,8 +62,8 @@ const salaryDisplay = computed(() => {
     const min = props.job.salary_min ? formatter.format(props.job.salary_min) : null;
     const max = props.job.salary_max ? formatter.format(props.job.salary_max) : null;
     if (min && max) return `${min} - ${max}`;
-    if (min) return `From ${min}`;
-    return `Up to ${max}`;
+    if (min) return `À partir de ${min}`;
+    return `Jusqu'à ${max}`;
 });
 
 function publishJob() {
@@ -80,7 +80,7 @@ function archiveJob() {
 
 function formatDate(dateStr) {
     if (!dateStr) return '-';
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -94,7 +94,7 @@ function formatDate(dateStr) {
         <div class="mb-6">
             <div class="flex items-center gap-2 text-sm text-slate-500">
                 <Link :href="route('jobs.index')" class="hover:text-indigo-600">
-                    Jobs
+                    Offres d'emploi
                 </Link>
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -139,7 +139,7 @@ function formatDate(dateStr) {
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                         </svg>
-                        Posted {{ formatDate(job.created_at) }}
+                        Publié le {{ formatDate(job.created_at) }}
                     </span>
                 </div>
             </div>
@@ -151,7 +151,7 @@ function formatDate(dateStr) {
                     size="sm"
                     @click="publishJob"
                 >
-                    Publish
+                    Publier
                 </Button>
                 <Button
                     v-if="job.status === 'published'"
@@ -159,7 +159,7 @@ function formatDate(dateStr) {
                     size="sm"
                     @click="closeJob"
                 >
-                    Close
+                    Clôturer
                 </Button>
                 <Button
                     v-if="job.status === 'closed'"
@@ -167,14 +167,14 @@ function formatDate(dateStr) {
                     size="sm"
                     @click="archiveJob"
                 >
-                    Archive
+                    Archiver
                 </Button>
                 <Link :href="route('jobs.edit', job.id)">
                     <Button variant="secondary" size="sm">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" />
                         </svg>
-                        Edit
+                        Modifier
                     </Button>
                 </Link>
                 <Link :href="route('pipeline.show', job.id)">
@@ -182,7 +182,7 @@ function formatDate(dateStr) {
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7" />
                         </svg>
-                        View Pipeline
+                        Voir le pipeline
                     </Button>
                 </Link>
             </div>
@@ -212,7 +212,7 @@ function formatDate(dateStr) {
                     ]"
                     @click="activeTab = 'details'"
                 >
-                    Details
+                    Détails
                 </button>
                 <button
                     :class="[
@@ -223,7 +223,7 @@ function formatDate(dateStr) {
                     ]"
                     @click="activeTab = 'applications'"
                 >
-                    Applications
+                    Candidatures
                     <span class="ml-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
                         {{ job.applications_count ?? 0 }}
                     </span>
@@ -235,30 +235,30 @@ function formatDate(dateStr) {
         <div v-show="activeTab === 'details'" class="space-y-6">
             <!-- Overview card -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Overview</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">Aperçu</h2>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div>
-                        <p class="text-xs font-medium uppercase text-slate-400">Experience Level</p>
+                        <p class="text-xs font-medium uppercase text-slate-400">Niveau d'expérience</p>
                         <p class="mt-1 text-sm text-slate-700">
                             {{ experienceLabels[job.experience_level] ?? job.experience_level ?? '-' }}
                         </p>
                     </div>
                     <div>
-                        <p class="text-xs font-medium uppercase text-slate-400">Remote Policy</p>
+                        <p class="text-xs font-medium uppercase text-slate-400">Politique de télétravail</p>
                         <p class="mt-1 text-sm text-slate-700">
                             {{ remotePolicyLabels[job.remote_policy] ?? job.remote_policy ?? '-' }}
                         </p>
                     </div>
                     <div>
-                        <p class="text-xs font-medium uppercase text-slate-400">Positions</p>
+                        <p class="text-xs font-medium uppercase text-slate-400">Postes</p>
                         <p class="mt-1 text-sm text-slate-700">{{ job.positions_count ?? 1 }}</p>
                     </div>
                     <div v-if="salaryDisplay">
-                        <p class="text-xs font-medium uppercase text-slate-400">Salary Range</p>
+                        <p class="text-xs font-medium uppercase text-slate-400">Fourchette salariale</p>
                         <p class="mt-1 text-sm text-slate-700">{{ salaryDisplay }}</p>
                     </div>
                     <div v-if="job.category?.name">
-                        <p class="text-xs font-medium uppercase text-slate-400">Category</p>
+                        <p class="text-xs font-medium uppercase text-slate-400">Catégorie</p>
                         <p class="mt-1 text-sm text-slate-700">{{ job.category.name }}</p>
                     </div>
                 </div>
@@ -266,7 +266,7 @@ function formatDate(dateStr) {
 
             <!-- Description -->
             <div v-if="job.description" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-3 text-lg font-semibold text-slate-900">Description</h2>
+                <h2 class="mb-3 text-lg font-semibold text-slate-900">Description</h2><!-- Description is same in French -->
                 <div class="prose prose-sm max-w-none text-slate-700 whitespace-pre-line">
                     {{ job.description }}
                 </div>
@@ -274,7 +274,7 @@ function formatDate(dateStr) {
 
             <!-- Requirements -->
             <div v-if="job.requirements" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-3 text-lg font-semibold text-slate-900">Requirements</h2>
+                <h2 class="mb-3 text-lg font-semibold text-slate-900">Exigences</h2>
                 <div class="prose prose-sm max-w-none text-slate-700 whitespace-pre-line">
                     {{ job.requirements }}
                 </div>
@@ -282,7 +282,7 @@ function formatDate(dateStr) {
 
             <!-- Responsibilities -->
             <div v-if="job.responsibilities" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-3 text-lg font-semibold text-slate-900">Responsibilities</h2>
+                <h2 class="mb-3 text-lg font-semibold text-slate-900">Responsabilités</h2>
                 <div class="prose prose-sm max-w-none text-slate-700 whitespace-pre-line">
                     {{ job.responsibilities }}
                 </div>
@@ -290,7 +290,7 @@ function formatDate(dateStr) {
 
             <!-- Benefits -->
             <div v-if="job.benefits" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-3 text-lg font-semibold text-slate-900">Benefits</h2>
+                <h2 class="mb-3 text-lg font-semibold text-slate-900">Avantages</h2>
                 <div class="prose prose-sm max-w-none text-slate-700 whitespace-pre-line">
                     {{ job.benefits }}
                 </div>
@@ -298,7 +298,7 @@ function formatDate(dateStr) {
 
             <!-- Skills -->
             <div v-if="skills.length" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-3 text-lg font-semibold text-slate-900">Skills</h2>
+                <h2 class="mb-3 text-lg font-semibold text-slate-900">Compétences</h2>
                 <div class="flex flex-wrap gap-2">
                     <span
                         v-for="skill in skills"
@@ -318,10 +318,10 @@ function formatDate(dateStr) {
                     <table class="min-w-full divide-y divide-slate-200">
                         <thead class="bg-slate-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Candidate</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Stage</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Candidat</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Étape</th>
                                 <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Score</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Applied</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Candidaté le</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
@@ -363,7 +363,7 @@ function formatDate(dateStr) {
                     <svg class="h-12 w-12 text-slate-300" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <p class="mt-3 text-sm text-slate-500">No applications yet.</p>
+                    <p class="mt-3 text-sm text-slate-500">Aucune candidature pour le moment.</p>
                 </div>
             </div>
         </div>

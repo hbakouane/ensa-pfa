@@ -9,7 +9,7 @@ const props = defineProps({
 
 function formatSalary() {
     if (!props.job.show_salary || !props.job.salary_min) return null;
-    const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: props.job.salary_currency || 'USD', maximumFractionDigits: 0 });
+    const fmt = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: props.job.salary_currency || 'EUR', maximumFractionDigits: 0 });
     if (props.job.salary_max && props.job.salary_max !== props.job.salary_min) {
         return `${fmt.format(props.job.salary_min)} - ${fmt.format(props.job.salary_max)}`;
     }
@@ -18,7 +18,21 @@ function formatSalary() {
 
 function formatType(type) {
     if (!type) return '';
-    return type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+    const labels = {
+        full_time: 'Temps plein',
+        part_time: 'Temps partiel',
+        contract: 'CDD',
+        internship: 'Stage',
+        freelance: 'Freelance',
+        remote: 'Télétravail',
+        on_site: 'Sur site',
+        hybrid: 'Hybride',
+        entry: 'Débutant',
+        mid: 'Intermédiaire',
+        senior: 'Senior',
+        executive: 'Cadre dirigeant',
+    };
+    return labels[type] || type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 }
 </script>
 
@@ -35,7 +49,7 @@ function formatType(type) {
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>
-                All Positions
+                Tous les postes
             </Link>
         </div>
 
@@ -61,25 +75,25 @@ function formatType(type) {
 
                 <!-- Description -->
                 <div class="mt-8">
-                    <h2 class="text-lg font-semibold text-slate-900">Description</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Description du poste</h2>
                     <div class="prose prose-slate mt-3 max-w-none" v-html="job.description" />
                 </div>
 
                 <!-- Requirements -->
                 <div v-if="job.requirements" class="mt-8">
-                    <h2 class="text-lg font-semibold text-slate-900">Requirements</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Exigences</h2>
                     <div class="prose prose-slate mt-3 max-w-none" v-html="job.requirements" />
                 </div>
 
                 <!-- Benefits -->
                 <div v-if="job.benefits" class="mt-8">
-                    <h2 class="text-lg font-semibold text-slate-900">Benefits</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Avantages</h2>
                     <div class="prose prose-slate mt-3 max-w-none" v-html="job.benefits" />
                 </div>
 
                 <!-- Skills -->
                 <div v-if="job.skills?.length" class="mt-8">
-                    <h2 class="text-lg font-semibold text-slate-900">Skills</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Compétences</h2>
                     <div class="mt-3 flex flex-wrap gap-2">
                         <span
                             v-for="skill in job.skills"
@@ -90,7 +104,7 @@ function formatType(type) {
                             ]"
                         >
                             {{ skill.name }}
-                            <span v-if="skill.is_required" class="ml-1 text-[10px]">(Required)</span>
+                            <span v-if="skill.is_required" class="ml-1 text-[10px]">(Requis)</span>
                         </span>
                     </div>
                 </div>
@@ -100,22 +114,22 @@ function formatType(type) {
             <div>
                 <div class="sticky top-8 rounded-lg border border-slate-200 bg-white p-6">
                     <div v-if="formatSalary()" class="mb-4">
-                        <p class="text-sm text-slate-500">Salary</p>
+                        <p class="text-sm text-slate-500">Salaire</p>
                         <p class="text-lg font-semibold text-slate-900">{{ formatSalary() }}</p>
                     </div>
 
                     <div v-if="job.location" class="mb-4">
-                        <p class="text-sm text-slate-500">Location</p>
+                        <p class="text-sm text-slate-500">Lieu</p>
                         <p class="font-medium text-slate-900">{{ job.location.name }}</p>
                     </div>
 
                     <div class="mb-4">
-                        <p class="text-sm text-slate-500">Employment Type</p>
+                        <p class="text-sm text-slate-500">Type de contrat</p>
                         <p class="font-medium text-slate-900">{{ formatType(job.employment_type) }}</p>
                     </div>
 
                     <div v-if="job.experience_level" class="mb-6">
-                        <p class="text-sm text-slate-500">Experience Level</p>
+                        <p class="text-sm text-slate-500">Niveau d'expérience</p>
                         <p class="font-medium text-slate-900">{{ formatType(job.experience_level) }}</p>
                     </div>
 
@@ -123,7 +137,7 @@ function formatType(type) {
                         :href="route('careers.apply', [company.slug, job.slug])"
                         class="block w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
                     >
-                        Apply Now
+                        Postuler maintenant
                     </Link>
                 </div>
             </div>

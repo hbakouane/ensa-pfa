@@ -54,7 +54,7 @@ class PipelineController extends Controller
         );
 
         return response()->json([
-            'message' => 'Application moved successfully.',
+            'message' => 'Candidature déplacée avec succès.',
             'application' => $application,
         ]);
     }
@@ -73,7 +73,7 @@ class PipelineController extends Controller
         );
 
         return response()->json([
-            'message' => 'Application rejected.',
+            'message' => 'Candidature rejetée.',
             'application' => $application,
         ]);
     }

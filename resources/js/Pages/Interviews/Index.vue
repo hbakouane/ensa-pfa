@@ -25,21 +25,21 @@ const dateFrom = ref(props.filters.date_from ?? '');
 const dateTo = ref(props.filters.date_to ?? '');
 
 const columns = [
-    { key: 'candidate', label: 'Candidate' },
-    { key: 'job', label: 'Job', sortable: true },
+    { key: 'candidate', label: 'Candidat' },
+    { key: 'job', label: 'Offre d\'emploi', sortable: true },
     { key: 'type', label: 'Type' },
-    { key: 'scheduled_at', label: 'Scheduled', sortable: true },
-    { key: 'status', label: 'Status' },
-    { key: 'interviewers', label: 'Interviewers' },
+    { key: 'scheduled_at', label: 'Planifié', sortable: true },
+    { key: 'status', label: 'Statut' },
+    { key: 'interviewers', label: 'Intervieweurs' },
     { key: 'actions', label: '' },
 ];
 
 const statusOptions = [
-    { value: '', label: 'All Statuses' },
-    { value: 'scheduled', label: 'Scheduled' },
-    { value: 'in_progress', label: 'In Progress' },
-    { value: 'completed', label: 'Completed' },
-    { value: 'cancelled', label: 'Cancelled' },
+    { value: '', label: 'Tous les statuts' },
+    { value: 'scheduled', label: 'Planifié' },
+    { value: 'in_progress', label: 'En cours' },
+    { value: 'completed', label: 'Terminé' },
+    { value: 'cancelled', label: 'Annulé' },
 ];
 
 const typeBadgeColors = {
@@ -79,7 +79,7 @@ function clearFilters() {
 function formatDate(dateString) {
     if (!dateString) return '-';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -108,16 +108,16 @@ const hasActiveFilters = computed(
         <!-- Header -->
         <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900">Interviews</h1>
+                <h1 class="text-2xl font-bold text-slate-900">Entretiens</h1>
                 <p class="mt-1 text-sm text-slate-500">
-                    Manage and track all scheduled interviews.
+                    Gérez et suivez tous les entretiens planifiés.
                 </p>
             </div>
             <Button variant="primary" @click="showScheduler = true">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
-                Schedule Interview
+                Planifier un entretien
             </Button>
         </div>
 
@@ -125,7 +125,7 @@ const hasActiveFilters = computed(
         <div class="mb-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-end">
                 <div class="flex-1">
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">Status</label>
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700">Statut</label>
                     <select
                         v-model="statusFilter"
                         class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
@@ -137,7 +137,7 @@ const hasActiveFilters = computed(
                     </select>
                 </div>
                 <div class="flex-1">
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">From Date</label>
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700">Date de début</label>
                     <input
                         v-model="dateFrom"
                         type="date"
@@ -146,7 +146,7 @@ const hasActiveFilters = computed(
                     />
                 </div>
                 <div class="flex-1">
-                    <label class="mb-1.5 block text-sm font-medium text-slate-700">To Date</label>
+                    <label class="mb-1.5 block text-sm font-medium text-slate-700">Date de fin</label>
                     <input
                         v-model="dateTo"
                         type="date"
@@ -160,14 +160,14 @@ const hasActiveFilters = computed(
                         class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
                         @click="clearFilters"
                     >
-                        Clear
+                        Effacer
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Table -->
-        <DataTable :columns="columns" :rows="interviews.data" empty-message="No interviews scheduled yet.">
+        <DataTable :columns="columns" :rows="interviews.data" empty-message="Aucun entretien planifié pour le moment.">
             <template #cell-candidate="{ row }">
                 <div class="flex items-center gap-3">
                     <div class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
@@ -236,7 +236,7 @@ const hasActiveFilters = computed(
                     :href="route('interviews.show', row.id)"
                     class="text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-800"
                 >
-                    View
+                    Voir
                 </Link>
             </template>
         </DataTable>

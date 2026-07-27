@@ -33,7 +33,7 @@ function initials(candidate) {
 
 function formatDate(dateStr) {
     if (!dateStr) return '-';
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -46,9 +46,9 @@ function formatDate(dateStr) {
         <!-- Header -->
         <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900">Candidates</h1>
+                <h1 class="text-2xl font-bold text-slate-900">Candidats</h1>
                 <p class="mt-1 text-sm text-slate-500">
-                    View and manage your candidate pool.
+                    Consultez et gérez votre vivier de candidats.
                 </p>
             </div>
 
@@ -57,7 +57,7 @@ function formatDate(dateStr) {
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    Add Candidate
+                    Ajouter un candidat
                 </Button>
             </Link>
         </div>
@@ -77,7 +77,7 @@ function formatDate(dateStr) {
                 <input
                     v-model="search"
                     type="text"
-                    placeholder="Search candidates..."
+                    placeholder="Rechercher des candidats..."
                     class="block w-full rounded-lg border border-slate-300 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 />
             </div>
@@ -89,11 +89,11 @@ function formatDate(dateStr) {
                 <table class="min-w-full divide-y divide-slate-200">
                     <thead class="bg-slate-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Candidate</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Email</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Headline</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Candidat</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">E-mail</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Titre</th>
                             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Tags</th>
-                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Applications</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Candidatures</th>
                             <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">Actions</th>
                         </tr>
                     </thead>
@@ -145,7 +145,7 @@ function formatDate(dateStr) {
                                 <Link
                                     :href="route('candidates.show', candidate.id)"
                                     class="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
-                                    title="View"
+                                    title="Voir"
                                 >
                                     <svg class="inline h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -166,10 +166,10 @@ function formatDate(dateStr) {
                 <svg class="h-12 w-12 text-slate-300" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <p class="mt-3 text-sm font-medium text-slate-900">No candidates found</p>
-                <p class="mt-1 text-sm text-slate-500">Add candidates manually or wait for applications.</p>
+                <p class="mt-3 text-sm font-medium text-slate-900">Aucun candidat trouvé</p>
+                <p class="mt-1 text-sm text-slate-500">Ajoutez des candidats manuellement ou attendez les candidatures.</p>
                 <Link :href="route('candidates.create')" class="mt-4">
-                    <Button variant="primary" size="sm">Add Candidate</Button>
+                    <Button variant="primary" size="sm">Ajouter un candidat</Button>
                 </Link>
             </div>
         </div>

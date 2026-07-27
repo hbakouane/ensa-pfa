@@ -58,7 +58,7 @@ class BillingController extends Controller
             $validated['interval'] ?? 'monthly',
         );
 
-        return back()->with('success', 'Subscription created successfully.');
+        return back()->with('success', 'Abonnement créé avec succès.');
     }
 
     /**
@@ -79,7 +79,7 @@ class BillingController extends Controller
             $validated['interval'] ?? 'monthly',
         );
 
-        return back()->with('success', 'Subscription plan changed successfully.');
+        return back()->with('success', 'Forfait modifié avec succès.');
     }
 
     /**
@@ -91,7 +91,7 @@ class BillingController extends Controller
 
         $this->subscriptionService->cancel($company);
 
-        return back()->with('success', 'Subscription cancelled. You will retain access until the end of the billing period.');
+        return back()->with('success', 'Abonnement résilié. Vous conserverez l\'accès jusqu\'à la fin de la période de facturation.');
     }
 
     /**
@@ -103,7 +103,7 @@ class BillingController extends Controller
 
         $this->subscriptionService->resume($company);
 
-        return back()->with('success', 'Subscription resumed successfully.');
+        return back()->with('success', 'Abonnement repris avec succès.');
     }
 
     /**
@@ -137,6 +137,6 @@ class BillingController extends Controller
 
         $company->updateDefaultPaymentMethod($validated['payment_method']);
 
-        return back()->with('success', 'Payment method updated successfully.');
+        return back()->with('success', 'Moyen de paiement mis à jour avec succès.');
     }
 }

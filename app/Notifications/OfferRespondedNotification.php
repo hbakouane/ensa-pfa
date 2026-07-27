@@ -29,16 +29,18 @@ class OfferRespondedNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $candidateName = $this->offer->application->candidate->full_name ?? 'The candidate';
-        $jobTitle = $this->offer->application->job->title ?? 'a position';
-        $status = ucfirst($this->offer->status);
+        $candidateName = $this->offer->application->candidate->full_name ?? 'Le candidat';
+        $jobTitle = $this->offer->application->job->title ?? 'un poste';
+        $statusMap = ['accepted' => 'acceptée', 'declined' => 'refusée'];
+        $statusFr = $statusMap[$this->offer->status] ?? $this->offer->status;
+        $statusLabel = ucfirst($statusFr);
 
         return (new MailMessage)
-            ->subject("Offer {$status}: {$jobTitle}")
-            ->greeting('Hello '.$notifiable->name.',')
-            ->line("{$candidateName} has **{$this->offer->status}** the offer for **{$jobTitle}**.")
-            ->action('View Offer', route('offers.show', $this->offer))
-            ->line('Please take any necessary follow-up actions.');
+            ->subject("Offre {$statusLabel} : {$jobTitle}")
+            ->greeting('Bonjour '.$notifiable->name.',')
+            ->line("{$candidateName} a **{$statusFr}** l'offre pour **{$jobTitle}**.")
+            ->action('Voir l\'offre', route('offers.show', $this->offer))
+            ->line('Veuillez effectuer les actions de suivi nécessaires.');
     }
 
     /**
@@ -50,7 +52,7 @@ class OfferRespondedNotification extends Notification implements ShouldQueue
             'type' => 'offer_responded',
             'offer_id' => $this->offer->id,
             'status' => $this->offer->status,
-            'message' => 'Offer '.$this->offer->status.' by '.$this->offer->application->candidate->full_name ?? 'the candidate',
+            'message' => 'Offre '.$this->offer->status.' par '.$this->offer->application->candidate->full_name ?? 'le candidat',
         ];
     }
 }

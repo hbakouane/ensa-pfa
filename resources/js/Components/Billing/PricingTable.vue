@@ -34,12 +34,12 @@ function selectPlan(planSlug) {
 }
 
 function getCtaLabel(planSlug) {
-    if (planSlug === props.currentPlanSlug) return 'Current Plan';
+    if (planSlug === props.currentPlanSlug) return 'Forfait actuel';
 
     const currentIndex = props.plans.findIndex((p) => p.slug === props.currentPlanSlug);
     const targetIndex = props.plans.findIndex((p) => p.slug === planSlug);
 
-    return targetIndex > currentIndex ? 'Upgrade' : 'Downgrade';
+    return targetIndex > currentIndex ? 'Mettre à niveau' : 'Rétrograder';
 }
 
 function getCtaClass(planSlug) {
@@ -51,12 +51,12 @@ function getCtaClass(planSlug) {
 
 function formatPrice(plan) {
     const price = interval.value === 'yearly' ? plan.price_yearly : plan.price_monthly;
-    if (parseFloat(price) === 0) return 'Free';
+    if (parseFloat(price) === 0) return 'Gratuit';
     return `$${parseFloat(price).toFixed(0)}`;
 }
 
 function formatFeatureValue(value) {
-    if (value === -1) return 'Unlimited';
+    if (value === -1) return 'Illimité';
     return value.toLocaleString();
 }
 </script>
@@ -70,15 +70,15 @@ function formatFeatureValue(value) {
                 class="rounded-lg px-4 py-2 text-sm font-medium transition-colors"
                 :class="interval === 'monthly' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
             >
-                Monthly
+                Mensuel
             </button>
             <button
                 @click="interval = 'yearly'"
                 class="rounded-lg px-4 py-2 text-sm font-medium transition-colors"
                 :class="interval === 'yearly' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
             >
-                Yearly
-                <span class="ml-1 text-xs opacity-75">Save 20%</span>
+                Annuel
+                <span class="ml-1 text-xs opacity-75">Économisez 20%</span>
             </button>
         </div>
 
@@ -95,7 +95,7 @@ function formatFeatureValue(value) {
                     v-if="plan.slug === currentPlanSlug"
                     class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-indigo-600 px-3 py-0.5 text-xs font-semibold text-white"
                 >
-                    Current
+                    Actuel
                 </div>
 
                 <h3 class="text-lg font-bold text-slate-900">{{ plan.name }}</h3>
@@ -104,7 +104,7 @@ function formatFeatureValue(value) {
                 <div class="mt-4">
                     <span class="text-3xl font-bold text-slate-900">{{ formatPrice(plan) }}</span>
                     <span v-if="parseFloat(interval === 'yearly' ? plan.price_yearly : plan.price_monthly) > 0" class="text-sm text-slate-500">
-                        /{{ interval === 'yearly' ? 'year' : 'month' }}
+                        /{{ interval === 'yearly' ? 'an' : 'mois' }}
                     </span>
                 </div>
 
@@ -113,25 +113,25 @@ function formatFeatureValue(value) {
                         <svg class="h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
-                        {{ formatFeatureValue(plan.max_jobs) }} jobs
+                        {{ formatFeatureValue(plan.max_jobs) }} offres d'emploi
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
-                        {{ formatFeatureValue(plan.max_candidates) }} candidates
+                        {{ formatFeatureValue(plan.max_candidates) }} candidats
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
-                        {{ formatFeatureValue(plan.max_users) }} team members
+                        {{ formatFeatureValue(plan.max_users) }} membres d'équipe
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
-                        {{ formatFeatureValue(plan.ai_parses_per_month) }} AI parses/month
+                        {{ formatFeatureValue(plan.ai_parses_per_month) }} analyses IA/mois
                     </li>
                     <li v-for="feature in (plan.features ?? [])" :key="feature" class="flex items-center gap-2">
                         <svg class="h-4 w-4 flex-shrink-0 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">

@@ -17,12 +17,12 @@ const form = useForm({
 });
 
 const companySizes = [
-    { value: '1-10', label: '1-10 employees' },
-    { value: '11-50', label: '11-50 employees' },
-    { value: '51-200', label: '51-200 employees' },
-    { value: '201-500', label: '201-500 employees' },
-    { value: '501-1000', label: '501-1,000 employees' },
-    { value: '1001+', label: '1,001+ employees' },
+    { value: '1-10', label: '1-10 employés' },
+    { value: '11-50', label: '11-50 employés' },
+    { value: '51-200', label: '51-200 employés' },
+    { value: '201-500', label: '201-500 employés' },
+    { value: '501-1000', label: '501-1 000 employés' },
+    { value: '1001+', label: '1 001+ employés' },
 ];
 
 function submit() {
@@ -34,14 +34,14 @@ function submit() {
 
 <template>
     <GuestLayout>
-        <Head title="Create your company account" />
+        <Head title="Créez votre compte entreprise" />
 
         <div class="mb-6 text-center">
             <h1 class="text-xl font-bold text-slate-900">
-                Create your company account
+                Créez votre compte entreprise
             </h1>
             <p class="mt-1 text-sm text-slate-500">
-                Get started with RecruitAI in minutes
+                Démarrez avec RecruitAI en quelques minutes
             </p>
         </div>
 
@@ -49,11 +49,11 @@ function submit() {
             <!-- Company section -->
             <div class="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
                 <h2 class="mb-3 text-sm font-semibold text-slate-700">
-                    Company Information
+                    Informations de l'entreprise
                 </h2>
 
                 <div>
-                    <InputLabel for="company_name" value="Company Name" />
+                    <InputLabel for="company_name" value="Nom de l'entreprise" />
                     <TextInput
                         id="company_name"
                         v-model="form.company_name"
@@ -70,14 +70,14 @@ function submit() {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="industry" value="Industry" />
+                    <InputLabel for="industry" value="Secteur d'activité" />
                     <TextInput
                         id="industry"
                         v-model="form.industry"
                         type="text"
                         class="mt-1 block w-full"
                         required
-                        placeholder="e.g. Technology, Healthcare, Finance"
+                        placeholder="ex. Technologie, Santé, Finance"
                     />
                     <InputError
                         class="mt-2"
@@ -86,14 +86,14 @@ function submit() {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="company_size" value="Company Size" />
+                    <InputLabel for="company_size" value="Taille de l'entreprise" />
                     <select
                         id="company_size"
                         v-model="form.company_size"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         required
                     >
-                        <option value="" disabled>Select company size</option>
+                        <option value="" disabled>Sélectionner la taille de l'entreprise</option>
                         <option
                             v-for="size in companySizes"
                             :key="size.value"
@@ -112,11 +112,11 @@ function submit() {
             <!-- User section -->
             <div class="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
                 <h2 class="mb-3 text-sm font-semibold text-slate-700">
-                    Admin Account
+                    Compte administrateur
                 </h2>
 
                 <div>
-                    <InputLabel for="name" value="Your Name" />
+                    <InputLabel for="name" value="Votre nom" />
                     <TextInput
                         id="name"
                         v-model="form.name"
@@ -129,7 +129,7 @@ function submit() {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="email" value="Email" />
+                    <InputLabel for="email" value="E-mail" />
                     <TextInput
                         id="email"
                         v-model="form.email"
@@ -142,14 +142,14 @@ function submit() {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="password" value="Password" />
+                    <InputLabel for="password" value="Mot de passe" />
                     <TextInput
                         id="password"
                         v-model="form.password"
                         type="password"
                         class="mt-1 block w-full"
                         required
-                        placeholder="Minimum 8 characters"
+                        placeholder="Minimum 8 caractères"
                     />
                     <InputError
                         class="mt-2"
@@ -160,7 +160,7 @@ function submit() {
                 <div class="mt-4">
                     <InputLabel
                         for="password_confirmation"
-                        value="Confirm Password"
+                        value="Confirmer le mot de passe"
                     />
                     <TextInput
                         id="password_confirmation"
@@ -168,7 +168,7 @@ function submit() {
                         type="password"
                         class="mt-1 block w-full"
                         required
-                        placeholder="Repeat your password"
+                        placeholder="Répétez votre mot de passe"
                     />
                     <InputError
                         class="mt-2"
@@ -182,7 +182,7 @@ function submit() {
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             >
-                Create Account
+                Créer le compte
             </PrimaryButton>
         </form>
     </GuestLayout>

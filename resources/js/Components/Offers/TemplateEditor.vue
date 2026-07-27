@@ -13,12 +13,12 @@ const emit = defineEmits(['update:modelValue']);
 const textareaRef = ref(null);
 
 const placeholders = [
-    { tag: '{{candidate_name}}', label: 'Candidate Name' },
-    { tag: '{{position_title}}', label: 'Position Title' },
-    { tag: '{{salary}}', label: 'Salary' },
-    { tag: '{{start_date}}', label: 'Start Date' },
-    { tag: '{{company_name}}', label: 'Company Name' },
-    { tag: '{{hiring_manager}}', label: 'Hiring Manager' },
+    { tag: '{{candidate_name}}', label: 'Nom du candidat' },
+    { tag: '{{position_title}}', label: 'Titre du poste' },
+    { tag: '{{salary}}', label: 'Salaire' },
+    { tag: '{{start_date}}', label: 'Date de début' },
+    { tag: '{{company_name}}', label: 'Nom de l\'entreprise' },
+    { tag: '{{hiring_manager}}', label: 'Responsable du recrutement' },
 ];
 
 function insertPlaceholder(tag) {
@@ -54,7 +54,7 @@ function onInput(event) {
         <!-- Placeholder chips -->
         <div class="mb-3 rounded-lg bg-slate-50 p-3">
             <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Insert Placeholder
+                Insérer un espace réservé
             </p>
             <div class="flex flex-wrap gap-2">
                 <button
@@ -77,7 +77,7 @@ function onInput(event) {
             ref="textareaRef"
             :value="modelValue"
             rows="16"
-            placeholder="Write the offer letter content here. Use the placeholder buttons above to insert dynamic values that will be replaced with actual data when the offer is generated..."
+            placeholder="Rédigez le contenu de la lettre d'offre ici. Utilisez les boutons ci-dessus pour insérer des valeurs dynamiques qui seront remplacées par les données réelles lors de la génération de l'offre..."
             class="block w-full rounded-lg border border-slate-300 px-4 py-3 font-mono text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             @input="onInput"
         />

@@ -37,25 +37,25 @@ const form = useForm({
 const newSkill = ref('');
 
 const employmentTypeOptions = [
-    { value: 'full_time', label: 'Full Time' },
-    { value: 'part_time', label: 'Part Time' },
-    { value: 'contract', label: 'Contract' },
-    { value: 'internship', label: 'Internship' },
-    { value: 'temporary', label: 'Temporary' },
+    { value: 'full_time', label: 'Temps plein' },
+    { value: 'part_time', label: 'Temps partiel' },
+    { value: 'contract', label: 'CDD' },
+    { value: 'internship', label: 'Stage' },
+    { value: 'temporary', label: 'Temporaire' },
 ];
 
 const experienceLevelOptions = [
-    { value: 'entry', label: 'Entry Level' },
-    { value: 'mid', label: 'Mid Level' },
-    { value: 'senior', label: 'Senior Level' },
+    { value: 'entry', label: 'Débutant' },
+    { value: 'mid', label: 'Intermédiaire' },
+    { value: 'senior', label: 'Senior' },
     { value: 'lead', label: 'Lead' },
-    { value: 'executive', label: 'Executive' },
+    { value: 'executive', label: 'Dirigeant' },
 ];
 
 const remotePolicyOptions = [
-    { value: 'onsite', label: 'On-site' },
-    { value: 'remote', label: 'Remote' },
-    { value: 'hybrid', label: 'Hybrid' },
+    { value: 'onsite', label: 'Sur site' },
+    { value: 'remote', label: 'Télétravail' },
+    { value: 'hybrid', label: 'Hybride' },
 ];
 
 const currencyOptions = [
@@ -104,7 +104,7 @@ function submit() {
         <div class="mb-8">
             <div class="flex items-center gap-2 text-sm text-slate-500">
                 <Link :href="route('jobs.index')" class="hover:text-indigo-600">
-                    Jobs
+                    Offres d'emploi
                 </Link>
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -115,24 +115,24 @@ function submit() {
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
-                <span class="text-slate-700">Edit</span>
+                <span class="text-slate-700">Modifier</span>
             </div>
-            <h1 class="mt-2 text-2xl font-bold text-slate-900">Edit Job</h1>
+            <h1 class="mt-2 text-2xl font-bold text-slate-900">Modifier l'offre</h1>
         </div>
 
         <form @submit.prevent="submit" class="space-y-8">
             <!-- Basic Information -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 class="mb-4 text-lg font-semibold text-slate-900">
-                    Basic Information
+                    Informations générales
                 </h2>
 
                 <div class="grid gap-5 sm:grid-cols-2">
                     <div class="sm:col-span-2">
                         <Input
                             v-model="form.title"
-                            label="Job Title"
-                            placeholder="e.g. Senior Software Engineer"
+                            label="Titre du poste"
+                            placeholder="ex. Ingénieur logiciel senior"
                             :error="form.errors.title"
                             required
                         />
@@ -140,56 +140,56 @@ function submit() {
 
                     <Select
                         v-model="form.department_id"
-                        label="Department"
+                        label="Département"
                         :options="departmentOptions"
-                        placeholder="Select department"
+                        placeholder="Sélectionner un département"
                         :error="form.errors.department_id"
                     />
 
                     <Select
                         v-model="form.location_id"
-                        label="Location"
+                        label="Lieu"
                         :options="locationOptions"
-                        placeholder="Select location"
+                        placeholder="Sélectionner un lieu"
                         :error="form.errors.location_id"
                     />
 
                     <Select
                         v-model="form.category_id"
-                        label="Category"
+                        label="Catégorie"
                         :options="categoryOptions"
-                        placeholder="Select category"
+                        placeholder="Sélectionner une catégorie"
                         :error="form.errors.category_id"
                     />
 
                     <Select
                         v-model="form.employment_type"
-                        label="Employment Type"
+                        label="Type de contrat"
                         :options="employmentTypeOptions"
-                        placeholder="Select type"
+                        placeholder="Sélectionner un type"
                         :error="form.errors.employment_type"
                         required
                     />
 
                     <Select
                         v-model="form.experience_level"
-                        label="Experience Level"
+                        label="Niveau d'expérience"
                         :options="experienceLevelOptions"
-                        placeholder="Select level"
+                        placeholder="Sélectionner un niveau"
                         :error="form.errors.experience_level"
                     />
 
                     <Select
                         v-model="form.remote_policy"
-                        label="Remote Policy"
+                        label="Politique de télétravail"
                         :options="remotePolicyOptions"
-                        placeholder="Select policy"
+                        placeholder="Sélectionner une politique"
                         :error="form.errors.remote_policy"
                     />
 
                     <Input
                         v-model="form.positions_count"
-                        label="Number of Positions"
+                        label="Nombre de postes"
                         type="number"
                         placeholder="1"
                         :error="form.errors.positions_count"
@@ -200,7 +200,7 @@ function submit() {
             <!-- Job Details -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 class="mb-4 text-lg font-semibold text-slate-900">
-                    Job Details
+                    Détails du poste
                 </h2>
 
                 <div class="space-y-5">
@@ -208,32 +208,32 @@ function submit() {
                         v-model="form.description"
                         label="Description"
                         rows="5"
-                        placeholder="Describe the role and its impact..."
+                        placeholder="Décrivez le rôle et son impact..."
                         :error="form.errors.description"
                         required
                     />
 
                     <Textarea
                         v-model="form.requirements"
-                        label="Requirements"
+                        label="Exigences"
                         rows="4"
-                        placeholder="List the qualifications and requirements..."
+                        placeholder="Listez les qualifications et exigences..."
                         :error="form.errors.requirements"
                     />
 
                     <Textarea
                         v-model="form.responsibilities"
-                        label="Responsibilities"
+                        label="Responsabilités"
                         rows="4"
-                        placeholder="List the key responsibilities..."
+                        placeholder="Listez les responsabilités principales..."
                         :error="form.errors.responsibilities"
                     />
 
                     <Textarea
                         v-model="form.benefits"
-                        label="Benefits"
+                        label="Avantages"
                         rows="3"
-                        placeholder="List the benefits and perks..."
+                        placeholder="Listez les avantages..."
                         :error="form.errors.benefits"
                     />
                 </div>
@@ -242,13 +242,13 @@ function submit() {
             <!-- Compensation -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 class="mb-4 text-lg font-semibold text-slate-900">
-                    Compensation
+                    Rémunération
                 </h2>
 
                 <div class="grid gap-5 sm:grid-cols-3">
                     <Input
                         v-model="form.salary_min"
-                        label="Minimum Salary"
+                        label="Salaire minimum"
                         type="number"
                         placeholder="50000"
                         :error="form.errors.salary_min"
@@ -256,7 +256,7 @@ function submit() {
 
                     <Input
                         v-model="form.salary_max"
-                        label="Maximum Salary"
+                        label="Salaire maximum"
                         type="number"
                         placeholder="80000"
                         :error="form.errors.salary_max"
@@ -264,7 +264,7 @@ function submit() {
 
                     <Select
                         v-model="form.salary_currency"
-                        label="Currency"
+                        label="Devise"
                         :options="currencyOptions"
                         :error="form.errors.salary_currency"
                     />
@@ -278,7 +278,7 @@ function submit() {
                             class="rounded border-slate-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
                         />
                         <span class="text-sm text-slate-700">
-                            Show salary on public job posting
+                            Afficher le salaire sur l'offre publique
                         </span>
                     </label>
                 </div>
@@ -287,7 +287,7 @@ function submit() {
             <!-- Skills -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 class="mb-4 text-lg font-semibold text-slate-900">
-                    Skills
+                    Compétences
                 </h2>
 
                 <div class="flex gap-2">
@@ -295,12 +295,12 @@ function submit() {
                         <input
                             v-model="newSkill"
                             type="text"
-                            placeholder="Add a skill (e.g. JavaScript, Python)"
+                            placeholder="Ajouter une compétence (ex. JavaScript, Python)"
                             class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                             @keydown.enter.prevent="addSkill"
                         />
                     </div>
-                    <Button variant="secondary" @click="addSkill">Add</Button>
+                    <Button variant="secondary" @click="addSkill">Ajouter</Button>
                 </div>
 
                 <div v-if="form.skills.length" class="mt-3 flex flex-wrap gap-2">
@@ -330,7 +330,7 @@ function submit() {
             <!-- Actions -->
             <div class="flex items-center justify-end gap-3">
                 <Link :href="route('jobs.show', job.id)">
-                    <Button variant="ghost">Cancel</Button>
+                    <Button variant="ghost">Annuler</Button>
                 </Link>
                 <Button
                     type="submit"
@@ -338,7 +338,7 @@ function submit() {
                     :loading="form.processing"
                     :disabled="form.processing"
                 >
-                    Update Job
+                    Mettre à jour l'offre
                 </Button>
             </div>
         </form>

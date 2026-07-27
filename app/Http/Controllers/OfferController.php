@@ -55,7 +55,7 @@ class OfferController extends Controller
         $offer = $action->execute($validated);
 
         return redirect()->route('offers.show', $offer)
-            ->with('success', 'Offer created successfully.');
+            ->with('success', 'Offre créée avec succès.');
     }
 
     public function show(Offer $offer): Response
@@ -77,7 +77,7 @@ class OfferController extends Controller
     {
         $action->execute($offer);
 
-        return back()->with('success', 'Offer sent to candidate successfully.');
+        return back()->with('success', 'Offre envoyée au candidat avec succès.');
     }
 
     public function downloadPdf(Offer $offer, GenerateOfferPdfAction $action)

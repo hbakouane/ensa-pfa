@@ -33,16 +33,16 @@ function submit() {
 
 <template>
     <PublicLayout>
-        <Head :title="`Apply - ${job.title} - ${company.name}`" />
+        <Head :title="`Postuler - ${job.title} - ${company.name}`" />
 
         <!-- Breadcrumb -->
         <div class="mb-6">
             <div class="flex items-center gap-2 text-sm text-slate-500">
-                <Link :href="route('careers.index', company.slug)" class="hover:text-indigo-600">All Positions</Link>
+                <Link :href="route('careers.index', company.slug)" class="hover:text-indigo-600">Tous les postes</Link>
                 <span>/</span>
                 <Link :href="route('careers.show', [company.slug, job.slug])" class="hover:text-indigo-600">{{ job.title }}</Link>
                 <span>/</span>
-                <span class="text-slate-700">Apply</span>
+                <span class="text-slate-700">Postuler</span>
             </div>
         </div>
 
@@ -52,14 +52,14 @@ function submit() {
         </div>
 
         <div class="mx-auto max-w-2xl">
-            <h1 class="text-2xl font-bold text-slate-900">Apply for {{ job.title }}</h1>
-            <p class="mt-1 text-slate-600">Fill out the form below to submit your application.</p>
+            <h1 class="text-2xl font-bold text-slate-900">Postuler pour {{ job.title }}</h1>
+            <p class="mt-1 text-slate-600">Remplissez le formulaire ci-dessous pour soumettre votre candidature.</p>
 
             <form class="mt-8 space-y-6" @submit.prevent="submit">
                 <div class="grid gap-6 sm:grid-cols-2">
                     <!-- First Name -->
                     <div>
-                        <label for="first_name" class="block text-sm font-medium text-slate-700">First Name *</label>
+                        <label for="first_name" class="block text-sm font-medium text-slate-700">Prénom *</label>
                         <input
                             id="first_name"
                             v-model="form.first_name"
@@ -72,7 +72,7 @@ function submit() {
 
                     <!-- Last Name -->
                     <div>
-                        <label for="last_name" class="block text-sm font-medium text-slate-700">Last Name *</label>
+                        <label for="last_name" class="block text-sm font-medium text-slate-700">Nom *</label>
                         <input
                             id="last_name"
                             v-model="form.last_name"
@@ -86,7 +86,7 @@ function submit() {
 
                 <!-- Email -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-slate-700">Email Address *</label>
+                    <label for="email" class="block text-sm font-medium text-slate-700">Adresse e-mail *</label>
                     <input
                         id="email"
                         v-model="form.email"
@@ -99,7 +99,7 @@ function submit() {
 
                 <!-- Phone -->
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-slate-700">Phone</label>
+                    <label for="phone" class="block text-sm font-medium text-slate-700">Téléphone</label>
                     <input
                         id="phone"
                         v-model="form.phone"
@@ -111,7 +111,7 @@ function submit() {
 
                 <!-- Resume -->
                 <div>
-                    <label for="resume" class="block text-sm font-medium text-slate-700">Resume</label>
+                    <label for="resume" class="block text-sm font-medium text-slate-700">CV</label>
                     <input
                         id="resume"
                         type="file"
@@ -119,19 +119,19 @@ function submit() {
                         class="mt-1 w-full text-sm text-slate-500 file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100"
                         @change="handleFileChange"
                     />
-                    <p class="mt-1 text-xs text-slate-500">PDF, DOC, or DOCX (max 10MB)</p>
+                    <p class="mt-1 text-xs text-slate-500">PDF, DOC ou DOCX (max 10 Mo)</p>
                     <p v-if="form.errors.resume" class="mt-1 text-xs text-red-600">{{ form.errors.resume }}</p>
                 </div>
 
                 <!-- Cover Letter -->
                 <div>
-                    <label for="cover_letter" class="block text-sm font-medium text-slate-700">Cover Letter</label>
+                    <label for="cover_letter" class="block text-sm font-medium text-slate-700">Lettre de motivation</label>
                     <textarea
                         id="cover_letter"
                         v-model="form.cover_letter"
                         rows="5"
                         class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                        placeholder="Tell us why you're a great fit for this role..."
+                        placeholder="Dites-nous pourquoi vous êtes le candidat idéal pour ce poste..."
                     />
                     <p v-if="form.errors.cover_letter" class="mt-1 text-xs text-red-600">{{ form.errors.cover_letter }}</p>
                 </div>
@@ -141,14 +141,14 @@ function submit() {
                         :href="route('careers.show', [company.slug, job.slug])"
                         class="rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"
                     >
-                        Cancel
+                        Annuler
                     </Link>
                     <button
                         type="submit"
                         :disabled="form.processing"
                         class="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
                     >
-                        {{ form.processing ? 'Submitting...' : 'Submit Application' }}
+                        {{ form.processing ? 'Envoi en cours...' : 'Soumettre la candidature' }}
                     </button>
                 </div>
             </form>

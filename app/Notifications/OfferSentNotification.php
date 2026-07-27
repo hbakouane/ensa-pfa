@@ -29,17 +29,17 @@ class OfferSentNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $companyName = $this->offer->company->name ?? 'a company';
-        $jobTitle = $this->offer->application->job->title ?? 'a position';
+        $companyName = $this->offer->company->name ?? 'une entreprise';
+        $jobTitle = $this->offer->application->job->title ?? 'un poste';
         $respondUrl = route('offers.respond', $this->offer->token);
 
         return (new MailMessage)
-            ->subject("You've received a job offer from ".$companyName)
-            ->greeting('Congratulations!')
-            ->line("You have received an offer for the **{$jobTitle}** position at **{$companyName}**.")
-            ->line('Please review the offer details and respond at your earliest convenience.')
-            ->action('View & Respond to Offer', $respondUrl)
-            ->line('If you have any questions, please reach out to the hiring team.');
+            ->subject('Vous avez reçu une offre d\'emploi de '.$companyName)
+            ->greeting('Félicitations !')
+            ->line("Vous avez reçu une offre pour le poste **{$jobTitle}** chez **{$companyName}**.")
+            ->line('Veuillez consulter les détails de l\'offre et répondre dans les meilleurs délais.')
+            ->action('Voir et répondre à l\'offre', $respondUrl)
+            ->line('Si vous avez des questions, n\'hésitez pas à contacter l\'équipe de recrutement.');
     }
 
     /**
@@ -50,7 +50,7 @@ class OfferSentNotification extends Notification implements ShouldQueue
         return [
             'type' => 'offer_sent',
             'offer_id' => $this->offer->id,
-            'message' => 'Offer sent for '.$this->offer->application->job->title ?? 'a position',
+            'message' => 'Offre envoyée pour '.$this->offer->application->job->title ?? 'un poste',
         ];
     }
 }

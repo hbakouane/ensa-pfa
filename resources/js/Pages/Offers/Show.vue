@@ -66,7 +66,7 @@ function formatCurrency(amount, currency) {
 function formatDate(dateString) {
     if (!dateString) return '-';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -84,7 +84,7 @@ function getInitials(name) {
 }
 
 function sendOffer() {
-    if (!confirm('Are you sure you want to send this offer to the candidate?')) return;
+    if (!confirm('Êtes-vous sûr de vouloir envoyer cette offre au candidat ?')) return;
     processing.value = true;
     router.post(route('offers.send', props.offer.id), {}, {
         preserveScroll: true,
@@ -93,7 +93,7 @@ function sendOffer() {
 }
 
 function withdrawOffer() {
-    if (!confirm('Are you sure you want to withdraw this offer?')) return;
+    if (!confirm('Êtes-vous sûr de vouloir retirer cette offre ?')) return;
     processing.value = true;
     router.post(route('offers.withdraw', props.offer.id), {}, {
         preserveScroll: true,
@@ -111,12 +111,12 @@ function downloadPdf() {
         <!-- Breadcrumb -->
         <nav class="mb-6 flex items-center gap-2 text-sm text-slate-500">
             <Link :href="route('offers.index')" class="transition-colors hover:text-indigo-600">
-                Offers
+                Offres
             </Link>
             <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-            <span class="text-slate-900">Offer Details</span>
+            <span class="text-slate-900">Détails de l'offre</span>
         </nav>
 
         <!-- Header -->
@@ -124,7 +124,7 @@ function downloadPdf() {
             <div>
                 <div class="flex items-center gap-3">
                     <h1 class="text-2xl font-bold text-slate-900">
-                        Offer for {{ candidate.name }}
+                        Offre pour {{ candidate.name }}
                     </h1>
                     <Badge
                         :label="statusLabel(offer.status)"
@@ -147,13 +147,13 @@ function downloadPdf() {
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    Send Offer
+                    Envoyer l'offre
                 </Button>
                 <Button variant="secondary" @click="downloadPdf">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    Download PDF
+                    Télécharger le PDF
                 </Button>
                 <Button
                     v-if="offer.status === 'sent'"
@@ -161,7 +161,7 @@ function downloadPdf() {
                     :loading="processing"
                     @click="withdrawOffer"
                 >
-                    Withdraw
+                    Retirer
                 </Button>
             </div>
         </div>
@@ -171,10 +171,10 @@ function downloadPdf() {
             <div class="space-y-6 lg:col-span-2">
                 <!-- Offer Details -->
                 <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h2 class="text-lg font-semibold text-slate-900">Offer Details</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Détails de l'offre</h2>
                     <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <dt class="text-sm font-medium text-slate-500">Salary</dt>
+                            <dt class="text-sm font-medium text-slate-500">Salaire</dt>
                             <dd class="mt-1 text-sm font-semibold text-slate-900">
                                 {{ formatCurrency(offer.salary, offer.salary_currency) }}
                                 <span v-if="offer.salary_period" class="font-normal text-slate-500">
@@ -183,31 +183,31 @@ function downloadPdf() {
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-slate-500">Currency</dt>
+                            <dt class="text-sm font-medium text-slate-500">Devise</dt>
                             <dd class="mt-1 text-sm text-slate-900">
                                 {{ offer.salary_currency ?? '-' }}
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-slate-500">Start Date</dt>
+                            <dt class="text-sm font-medium text-slate-500">Date de début</dt>
                             <dd class="mt-1 text-sm text-slate-900">
                                 {{ formatDate(offer.start_date) }}
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-slate-500">Expiry Date</dt>
+                            <dt class="text-sm font-medium text-slate-500">Date d'expiration</dt>
                             <dd class="mt-1 text-sm text-slate-900">
                                 {{ formatDate(offer.expiry_date) }}
                             </dd>
                         </div>
                         <div v-if="offer.sent_at">
-                            <dt class="text-sm font-medium text-slate-500">Sent At</dt>
+                            <dt class="text-sm font-medium text-slate-500">Envoyé le</dt>
                             <dd class="mt-1 text-sm text-slate-900">
                                 {{ formatDate(offer.sent_at) }}
                             </dd>
                         </div>
                         <div v-if="offer.responded_at">
-                            <dt class="text-sm font-medium text-slate-500">Responded At</dt>
+                            <dt class="text-sm font-medium text-slate-500">Répondu le</dt>
                             <dd class="mt-1 text-sm text-slate-900">
                                 {{ formatDate(offer.responded_at) }}
                             </dd>
@@ -217,7 +217,7 @@ function downloadPdf() {
 
                 <!-- Offer Content Preview -->
                 <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h2 class="text-lg font-semibold text-slate-900">Offer Letter</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Lettre d'offre</h2>
                     <div class="mt-4">
                         <OfferPreview :content="offer.content ?? ''" />
                     </div>
@@ -228,7 +228,7 @@ function downloadPdf() {
             <div class="space-y-6">
                 <!-- Candidate Card -->
                 <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Candidate</h3>
+                    <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Candidat</h3>
                     <div class="mt-3 flex items-center gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-sm font-semibold text-indigo-700">
                             {{ getInitials(candidate.name) }}
@@ -240,23 +240,23 @@ function downloadPdf() {
                     </div>
                     <div class="mt-4">
                         <p class="text-sm text-slate-600">
-                            <span class="font-medium">Position:</span> {{ job.title }}
+                            <span class="font-medium">Poste :</span> {{ job.title }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Template Info -->
                 <div v-if="template" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Template Used</h3>
+                    <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Modèle utilisé</h3>
                     <p class="mt-2 text-sm font-medium text-slate-900">{{ template.name }}</p>
                 </div>
 
                 <!-- Approval Status -->
                 <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Approvals</h3>
+                    <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Approbations</h3>
 
                     <div v-if="approvals.length === 0" class="mt-3">
-                        <p class="text-sm text-slate-500">No approvals required.</p>
+                        <p class="text-sm text-slate-500">Aucune approbation requise.</p>
                     </div>
 
                     <ul v-else class="mt-3 space-y-3">
@@ -286,7 +286,7 @@ function downloadPdf() {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-sm text-slate-900">{{ approval.user?.name ?? 'Unknown' }}</p>
+                                    <p class="text-sm text-slate-900">{{ approval.user?.name ?? 'Inconnu' }}</p>
                                     <p v-if="approval.responded_at" class="text-xs text-slate-500">
                                         {{ formatDate(approval.responded_at) }}
                                     </p>

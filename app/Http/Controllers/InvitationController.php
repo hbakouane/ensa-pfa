@@ -27,7 +27,7 @@ class InvitationController extends Controller
             ->first();
 
         if ($existing) {
-            return back()->withErrors(['email' => 'An invitation has already been sent to this email.']);
+            return back()->withErrors(['email' => 'Une invitation a déjà été envoyée à cette adresse e-mail.']);
         }
 
         CompanyInvitation::create([
@@ -37,7 +37,7 @@ class InvitationController extends Controller
             'role' => $validated['role'],
         ]);
 
-        return back()->with('success', 'Invitation sent successfully.');
+        return back()->with('success', 'Invitation envoyée avec succès.');
     }
 
     public function accept(string $token)

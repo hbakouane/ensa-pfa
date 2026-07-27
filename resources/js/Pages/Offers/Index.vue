@@ -14,12 +14,12 @@ const props = defineProps({
 });
 
 const columns = [
-    { key: 'candidate', label: 'Candidate', sortable: true },
-    { key: 'job', label: 'Job', sortable: true },
-    { key: 'salary', label: 'Salary', sortable: true },
-    { key: 'status', label: 'Status' },
-    { key: 'sent_at', label: 'Sent', sortable: true },
-    { key: 'responded_at', label: 'Responded' },
+    { key: 'candidate', label: 'Candidat', sortable: true },
+    { key: 'job', label: 'Offre d\'emploi', sortable: true },
+    { key: 'salary', label: 'Salaire', sortable: true },
+    { key: 'status', label: 'Statut' },
+    { key: 'sent_at', label: 'Envoyé', sortable: true },
+    { key: 'responded_at', label: 'Répondu' },
     { key: 'actions', label: '' },
 ];
 
@@ -52,7 +52,7 @@ function formatCurrency(amount, currency) {
 function formatDate(dateString) {
     if (!dateString) return '-';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -70,15 +70,15 @@ function statusLabel(status) {
         <!-- Header -->
         <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900">Offers</h1>
+                <h1 class="text-2xl font-bold text-slate-900">Offres</h1>
                 <p class="mt-1 text-sm text-slate-500">
-                    Track and manage all job offers sent to candidates.
+                    Suivez et gérez toutes les offres envoyées aux candidats.
                 </p>
             </div>
         </div>
 
         <!-- Table -->
-        <DataTable :columns="columns" :rows="offers.data" empty-message="No offers have been created yet.">
+        <DataTable :columns="columns" :rows="offers.data" empty-message="Aucune offre n'a encore été créée.">
             <template #cell-candidate="{ row }">
                 <div class="flex items-center gap-3">
                     <div class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
@@ -136,7 +136,7 @@ function statusLabel(status) {
                     :href="route('offers.show', row.id)"
                     class="text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-800"
                 >
-                    View
+                    Voir
                 </Link>
             </template>
         </DataTable>

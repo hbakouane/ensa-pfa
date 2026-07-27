@@ -108,7 +108,7 @@ class PipelineControllerTest extends TestCase
         ]);
 
         $response->assertOk();
-        $response->assertJson(['message' => 'Application moved successfully.']);
+        $response->assertJson(['message' => 'Candidature déplacée avec succès.']);
 
         $application->refresh();
         $this->assertEquals($this->screeningStage->id, $application->pipeline_stage_id);
@@ -149,7 +149,7 @@ class PipelineControllerTest extends TestCase
         ]);
 
         $response->assertOk();
-        $response->assertJson(['message' => 'Application rejected.']);
+        $response->assertJson(['message' => 'Candidature rejetée.']);
 
         $application->refresh();
         $this->assertEquals('rejected', $application->status);

@@ -54,7 +54,7 @@ function formatCurrency(amount, currency) {
     if (!amount) return '-';
     const cur = currency ?? 'USD';
     try {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('fr-FR', {
             style: 'currency',
             currency: cur,
             minimumFractionDigits: 0,
@@ -68,7 +68,7 @@ function formatCurrency(amount, currency) {
 function formatDate(dateString) {
     if (!dateString) return '-';
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-FR', {
         weekday: 'long',
         month: 'long',
         day: 'numeric',
@@ -86,10 +86,10 @@ function formatDate(dateString) {
                     {{ (company.name ?? 'C').charAt(0).toUpperCase() }}
                 </div>
                 <h1 class="mt-4 text-2xl font-bold text-slate-900">
-                    {{ company.name ?? 'Company' }}
+                    {{ company.name ?? 'Entreprise' }}
                 </h1>
                 <p class="mt-1 text-sm text-slate-500">
-                    Job Offer
+                    Offre d'emploi
                 </p>
             </div>
 
@@ -107,42 +107,42 @@ function formatDate(dateString) {
                     }"
                 >
                     <template v-if="offer.status === 'accepted'">
-                        You have accepted this offer. Welcome aboard!
+                        Vous avez accepté cette offre. Bienvenue dans l'équipe !
                     </template>
                     <template v-else>
-                        You have declined this offer.
+                        Vous avez refusé cette offre.
                     </template>
                 </p>
             </div>
 
             <div v-if="isExpired && !hasResponded" class="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-center">
                 <p class="text-sm font-medium text-amber-700">
-                    This offer has expired. Please contact the hiring team for more information.
+                    Cette offre a expiré. Veuillez contacter l'équipe de recrutement pour plus d'informations.
                 </p>
             </div>
 
             <div v-if="offer.status === 'withdrawn'" class="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center">
                 <p class="text-sm font-medium text-slate-600">
-                    This offer has been withdrawn by the company.
+                    Cette offre a été retirée par l'entreprise.
                 </p>
             </div>
 
             <!-- Offer Summary -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div class="border-b border-slate-100 pb-4">
-                    <h2 class="text-lg font-semibold text-slate-900">Offer Summary</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Résumé de l'offre</h2>
                     <p class="mt-1 text-sm text-slate-500">
-                        Dear {{ candidate.name }}, congratulations on your offer!
+                        Cher(e) {{ candidate.name }}, félicitations pour votre offre !
                     </p>
                 </div>
 
                 <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="rounded-lg bg-slate-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Position</p>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Poste</p>
                         <p class="mt-1 text-base font-semibold text-slate-900">{{ job.title }}</p>
                     </div>
                     <div class="rounded-lg bg-slate-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Salary</p>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Salaire</p>
                         <p class="mt-1 text-base font-semibold text-slate-900">
                             {{ formatCurrency(offer.salary, offer.salary_currency) }}
                             <span v-if="offer.salary_period" class="text-sm font-normal text-slate-500">
@@ -151,11 +151,11 @@ function formatDate(dateString) {
                         </p>
                     </div>
                     <div class="rounded-lg bg-slate-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Start Date</p>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Date de début</p>
                         <p class="mt-1 text-base font-semibold text-slate-900">{{ formatDate(offer.start_date) }}</p>
                     </div>
                     <div class="rounded-lg bg-slate-50 p-4">
-                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Offer Expires</p>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Expiration de l'offre</p>
                         <p class="mt-1 text-base font-semibold text-slate-900">{{ formatDate(offer.expiry_date) }}</p>
                     </div>
                 </div>
@@ -172,19 +172,19 @@ function formatDate(dateString) {
                 <div v-if="confirmAction" class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm text-center">
                     <p class="text-base font-medium text-slate-900">
                         <template v-if="confirmAction === 'accept'">
-                            Are you sure you want to accept this offer?
+                            Êtes-vous sûr(e) de vouloir accepter cette offre ?
                         </template>
                         <template v-else>
-                            Are you sure you want to decline this offer?
+                            Êtes-vous sûr(e) de vouloir refuser cette offre ?
                         </template>
                     </p>
-                    <p class="mt-1 text-sm text-slate-500">This action cannot be undone.</p>
+                    <p class="mt-1 text-sm text-slate-500">Cette action est irréversible.</p>
                     <div class="mt-6 flex items-center justify-center gap-4">
                         <button
                             class="rounded-lg border border-slate-300 bg-white px-6 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
                             @click="cancelAction"
                         >
-                            Go Back
+                            Retour
                         </button>
                         <button
                             v-if="confirmAction === 'accept'"
@@ -192,8 +192,8 @@ function formatDate(dateString) {
                             :disabled="form.processing"
                             @click="submitResponse('accepted')"
                         >
-                            <span v-if="form.processing">Processing...</span>
-                            <span v-else>Confirm Accept</span>
+                            <span v-if="form.processing">Traitement en cours...</span>
+                            <span v-else>Confirmer l'acceptation</span>
                         </button>
                         <button
                             v-else
@@ -201,8 +201,8 @@ function formatDate(dateString) {
                             :disabled="form.processing"
                             @click="submitResponse('declined')"
                         >
-                            <span v-if="form.processing">Processing...</span>
-                            <span v-else>Confirm Decline</span>
+                            <span v-if="form.processing">Traitement en cours...</span>
+                            <span v-else>Confirmer le refus</span>
                         </button>
                     </div>
                 </div>
@@ -216,7 +216,7 @@ function formatDate(dateString) {
                         <svg class="mx-auto mb-1 h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
-                        Accept Offer
+                        Accepter l'offre
                     </button>
                     <button
                         class="flex-1 rounded-xl border-2 border-red-200 bg-white px-8 py-4 text-center text-lg font-semibold text-red-600 shadow-sm transition-all hover:bg-red-50 hover:shadow-md sm:flex-none sm:px-16"
@@ -225,7 +225,7 @@ function formatDate(dateString) {
                         <svg class="mx-auto mb-1 h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        Decline Offer
+                        Refuser l'offre
                     </button>
                 </div>
             </div>

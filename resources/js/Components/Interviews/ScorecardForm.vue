@@ -22,11 +22,11 @@ const form = useForm({
 const hoveredStar = ref(0);
 
 const recommendationOptions = [
-    { value: 'strong_yes', label: 'Strong Yes', color: 'border-emerald-300 bg-emerald-50 text-emerald-700' },
-    { value: 'yes', label: 'Yes', color: 'border-green-300 bg-green-50 text-green-700' },
-    { value: 'maybe', label: 'Maybe', color: 'border-amber-300 bg-amber-50 text-amber-700' },
-    { value: 'no', label: 'No', color: 'border-orange-300 bg-orange-50 text-orange-700' },
-    { value: 'strong_no', label: 'Strong No', color: 'border-red-300 bg-red-50 text-red-700' },
+    { value: 'strong_yes', label: 'Fortement recommandé', color: 'border-emerald-300 bg-emerald-50 text-emerald-700' },
+    { value: 'yes', label: 'Recommandé', color: 'border-green-300 bg-green-50 text-green-700' },
+    { value: 'maybe', label: 'Peut-être', color: 'border-amber-300 bg-amber-50 text-amber-700' },
+    { value: 'no', label: 'Non recommandé', color: 'border-orange-300 bg-orange-50 text-orange-700' },
+    { value: 'strong_no', label: 'Fortement non recommandé', color: 'border-red-300 bg-red-50 text-red-700' },
 ];
 
 function setRating(rating) {
@@ -60,7 +60,7 @@ function submit() {
         <!-- Overall Rating -->
         <div>
             <label class="mb-2 block text-sm font-medium text-slate-700">
-                Overall Rating
+                Évaluation globale
                 <span class="text-red-500">*</span>
             </label>
             <div class="flex items-center gap-1">
@@ -87,7 +87,7 @@ function submit() {
                     </svg>
                 </button>
                 <span class="ml-2 text-sm text-slate-500">
-                    {{ form.overall_rating > 0 ? `${form.overall_rating}/5` : 'Select rating' }}
+                    {{ form.overall_rating > 0 ? `${form.overall_rating}/5` : 'Sélectionner une évaluation' }}
                 </span>
             </div>
             <p v-if="form.errors.overall_rating" class="mt-1.5 text-xs text-red-600">
@@ -98,7 +98,7 @@ function submit() {
         <!-- Recommendation -->
         <div>
             <label class="mb-2 block text-sm font-medium text-slate-700">
-                Recommendation
+                Recommandation
                 <span class="text-red-500">*</span>
             </label>
             <div class="flex flex-wrap gap-2">
@@ -124,11 +124,11 @@ function submit() {
 
         <!-- Strengths -->
         <div>
-            <label class="mb-1.5 block text-sm font-medium text-slate-700">Strengths</label>
+            <label class="mb-1.5 block text-sm font-medium text-slate-700">Points forts</label>
             <textarea
                 v-model="form.strengths"
                 rows="3"
-                placeholder="What stood out positively about the candidate?"
+                placeholder="Qu'est-ce qui s'est démarqué positivement chez le candidat ?"
                 class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
             <p v-if="form.errors.strengths" class="mt-1.5 text-xs text-red-600">
@@ -138,11 +138,11 @@ function submit() {
 
         <!-- Concerns -->
         <div>
-            <label class="mb-1.5 block text-sm font-medium text-slate-700">Concerns</label>
+            <label class="mb-1.5 block text-sm font-medium text-slate-700">Préoccupations</label>
             <textarea
                 v-model="form.concerns"
                 rows="3"
-                placeholder="Any concerns or areas for improvement?"
+                placeholder="Des préoccupations ou des points à améliorer ?"
                 class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
             <p v-if="form.errors.concerns" class="mt-1.5 text-xs text-red-600">
@@ -152,11 +152,11 @@ function submit() {
 
         <!-- Notes -->
         <div>
-            <label class="mb-1.5 block text-sm font-medium text-slate-700">Additional Notes</label>
+            <label class="mb-1.5 block text-sm font-medium text-slate-700">Notes supplémentaires</label>
             <textarea
                 v-model="form.notes"
                 rows="3"
-                placeholder="Any other observations or comments..."
+                placeholder="Autres observations ou commentaires..."
                 class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
             <p v-if="form.errors.notes" class="mt-1.5 text-xs text-red-600">
@@ -167,7 +167,7 @@ function submit() {
         <!-- Dynamic Criteria -->
         <div>
             <div class="mb-2 flex items-center justify-between">
-                <label class="text-sm font-medium text-slate-700">Evaluation Criteria</label>
+                <label class="text-sm font-medium text-slate-700">Critères d'évaluation</label>
                 <button
                     type="button"
                     class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-medium text-indigo-600 transition-colors hover:bg-indigo-50"
@@ -176,7 +176,7 @@ function submit() {
                     <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
-                    Add Criterion
+                    Ajouter un critère
                 </button>
             </div>
 
@@ -189,7 +189,7 @@ function submit() {
                     <input
                         v-model="criterion.name"
                         type="text"
-                        placeholder="e.g. Communication, Problem Solving"
+                        placeholder="ex. Communication, Résolution de problèmes"
                         class="flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                     />
                     <div class="flex items-center gap-0.5">
@@ -222,7 +222,7 @@ function submit() {
                 </div>
             </div>
             <p v-else class="text-xs text-slate-500">
-                Add specific criteria to evaluate the candidate on.
+                Ajoutez des critères spécifiques pour évaluer le candidat.
             </p>
         </div>
 
@@ -234,10 +234,10 @@ function submit() {
                 :loading="form.processing"
                 :disabled="form.processing || !form.overall_rating || !form.recommendation"
             >
-                Submit Scorecard
+                Soumettre la fiche d'évaluation
             </Button>
             <p v-if="!form.overall_rating || !form.recommendation" class="text-xs text-slate-500">
-                Rating and recommendation are required.
+                L'évaluation et la recommandation sont requises.
             </p>
         </div>
     </form>

@@ -21,7 +21,7 @@ const props = defineProps({
     },
     placeholder: {
         type: String,
-        default: 'Select an option',
+        default: 'Sélectionnez une option',
     },
     id: {
         type: String,

@@ -36,7 +36,7 @@ function getBarWidth(count) {
 
 <template>
     <div v-if="stages.length === 0" class="flex h-48 items-center justify-center text-sm text-slate-400">
-        No pipeline data available yet.
+        Aucune donnée de pipeline disponible pour le moment.
     </div>
 
     <div v-else class="space-y-3">
@@ -48,13 +48,13 @@ function getBarWidth(count) {
             <div class="mb-1 flex items-center justify-between text-sm">
                 <span class="font-medium text-slate-700">{{ stage.name }}</span>
                 <div class="flex items-center gap-3">
-                    <span class="text-slate-500">{{ stage.count }} candidates</span>
+                    <span class="text-slate-500">{{ stage.count }} candidats</span>
                     <span
                         v-if="index > 0"
                         class="text-xs font-medium"
                         :class="stage.conversion_rate >= 50 ? 'text-emerald-600' : 'text-amber-600'"
                     >
-                        {{ stage.conversion_rate }}% conversion
+                        {{ stage.conversion_rate }}% de conversion
                     </span>
                 </div>
             </div>
@@ -79,7 +79,7 @@ function getBarWidth(count) {
                 v-if="index > 0 && stage.drop_off_rate > 0"
                 class="mt-0.5 text-right text-xs text-red-400"
             >
-                {{ stage.drop_off_rate }}% drop-off
+                {{ stage.drop_off_rate }}% d'abandon
             </div>
         </div>
     </div>

@@ -29,21 +29,21 @@ class InterviewScheduledNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $jobTitle = $this->interview->application->job->title ?? 'a position';
-        $candidateName = $this->interview->application->candidate->full_name ?? 'a candidate';
-        $scheduledAt = $this->interview->scheduled_at->format('l, F j, Y \a\t g:i A');
+        $jobTitle = $this->interview->application->job->title ?? 'un poste';
+        $candidateName = $this->interview->application->candidate->full_name ?? 'un candidat';
+        $scheduledAt = $this->interview->scheduled_at->format('l j F Y \à H:i');
 
         return (new MailMessage)
-            ->subject('Interview Scheduled: '.$jobTitle)
-            ->greeting('Hello '.$notifiable->name.',')
-            ->line('An interview has been scheduled with the following details:')
-            ->line('**Candidate:** '.$candidateName)
-            ->line('**Position:** '.$jobTitle)
-            ->line('**Date & Time:** '.$scheduledAt)
-            ->line('**Duration:** '.$this->interview->duration_minutes.' minutes')
-            ->when($this->interview->location, fn ($mail) => $mail->line('**Location:** '.$this->interview->location))
-            ->when($this->interview->meeting_url, fn ($mail) => $mail->action('Join Meeting', $this->interview->meeting_url))
-            ->line('Please confirm your availability.');
+            ->subject('Entretien planifié : '.$jobTitle)
+            ->greeting('Bonjour '.$notifiable->name.',')
+            ->line('Un entretien a été planifié avec les détails suivants :')
+            ->line('**Candidat :** '.$candidateName)
+            ->line('**Poste :** '.$jobTitle)
+            ->line('**Date et heure :** '.$scheduledAt)
+            ->line('**Durée :** '.$this->interview->duration_minutes.' minutes')
+            ->when($this->interview->location, fn ($mail) => $mail->line('**Lieu :** '.$this->interview->location))
+            ->when($this->interview->meeting_url, fn ($mail) => $mail->action('Rejoindre la réunion', $this->interview->meeting_url))
+            ->line('Veuillez confirmer votre disponibilité.');
     }
 
     /**
@@ -54,7 +54,7 @@ class InterviewScheduledNotification extends Notification implements ShouldQueue
         return [
             'type' => 'interview_scheduled',
             'interview_id' => $this->interview->id,
-            'message' => 'Interview "'.$this->interview->title.'" scheduled for '.$this->interview->scheduled_at->format('M j, Y g:i A'),
+            'message' => 'Entretien "'.$this->interview->title.'" planifié le '.$this->interview->scheduled_at->format('d/m/Y H:i'),
         ];
     }
 }

@@ -1,20 +1,20 @@
 @component('mail::message')
-# Congratulations, {{ $candidate->first_name }}!
+# Félicitations, {{ $candidate->first_name }} !
 
-We are thrilled to extend an offer for the **{{ $offer->application->job->title }}** position at **{{ $offer->company->name ?? config('app.name') }}**.
+Nous avons le plaisir de vous proposer une offre pour le poste **{{ $offer->application->job->title }}** chez **{{ $offer->company->name ?? config('app.name') }}**.
 
-We were impressed with your qualifications and believe you would be a great addition to our team.
+Nous avons été impressionnés par vos qualifications et pensons que vous seriez un excellent atout pour notre équipe.
 
 @component('mail::button', ['url' => $responseUrl, 'color' => 'success'])
-View Your Offer
+Voir votre offre
 @endcomponent
 
 @if($offer->expiry_date)
-> **Please note:** This offer will expire on **{{ $offer->expiry_date->format('F j, Y') }}**. Please review and respond before this date.
+> **Veuillez noter :** Cette offre expirera le **{{ $offer->expiry_date->format('d/m/Y') }}**. Veuillez la consulter et y répondre avant cette date.
 @endif
 
-If you have any questions about the offer or the role, please do not hesitate to reach out to us.
+Si vous avez des questions concernant l'offre ou le poste, n'hésitez pas à nous contacter.
 
-Regards,<br>
+Cordialement,<br>
 {{ config('app.name') }}
 @endcomponent

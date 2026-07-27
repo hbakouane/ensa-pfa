@@ -81,14 +81,14 @@ const total = computed(() => props.data.reduce((sum, d) => sum + d.count, 0));
 
 <template>
     <div v-if="data.length === 0" class="flex h-64 items-center justify-center text-sm text-slate-400">
-        No source tracking data available yet.
+        Aucune donnée de suivi des sources disponible pour le moment.
     </div>
     <div v-else class="flex items-center gap-8">
         <div class="relative h-72 w-full max-w-md">
             <Doughnut :data="chartData" :options="chartOptions" />
         </div>
         <div class="hidden flex-shrink-0 space-y-2 lg:block">
-            <p class="text-sm font-medium text-slate-500">Total Tracked</p>
+            <p class="text-sm font-medium text-slate-500">Total suivi</p>
             <p class="text-3xl font-bold text-slate-900">{{ total }}</p>
         </div>
     </div>

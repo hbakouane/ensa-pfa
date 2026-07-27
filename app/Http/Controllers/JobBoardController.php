@@ -117,6 +117,6 @@ class JobBoardController extends Controller
         });
 
         return redirect()->route('careers.show', [$company->slug, $job->slug])
-            ->with('success', 'Your application has been submitted successfully!');
+            ->with('success', 'Votre candidature a été soumise avec succès !');
     }
 }

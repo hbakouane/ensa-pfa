@@ -48,14 +48,14 @@ class PipelineStageController extends Controller
         // Prevent deleting stages that have applications
         if ($stage->applications()->exists()) {
             return response()->json([
-                'message' => 'Cannot delete a pipeline stage that has applications. Move or remove the applications first.',
+                'message' => 'Impossible de supprimer une étape du pipeline qui contient des candidatures. Déplacez ou supprimez d\'abord les candidatures.',
             ], 422);
         }
 
         $stage->delete();
 
         return response()->json([
-            'message' => 'Pipeline stage deleted successfully.',
+            'message' => 'Étape du pipeline supprimée avec succès.',
         ]);
     }
 
@@ -76,7 +76,7 @@ class PipelineStageController extends Controller
         $stages = PipelineStage::orderBy('position')->get();
 
         return response()->json([
-            'message' => 'Pipeline stages reordered successfully.',
+            'message' => 'Étapes du pipeline réorganisées avec succès.',
             'stages' => $stages,
         ]);
     }

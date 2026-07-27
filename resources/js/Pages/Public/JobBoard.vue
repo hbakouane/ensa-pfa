@@ -24,7 +24,7 @@ function applyFilters() {
 
 function formatSalary(job) {
     if (!job.show_salary || !job.salary_min) return null;
-    const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: job.salary_currency || 'USD', maximumFractionDigits: 0 });
+    const fmt = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: job.salary_currency || 'EUR', maximumFractionDigits: 0 });
     if (job.salary_max && job.salary_max !== job.salary_min) {
         return `${fmt.format(job.salary_min)} - ${fmt.format(job.salary_max)}`;
     }
@@ -33,18 +33,32 @@ function formatSalary(job) {
 
 function formatType(type) {
     if (!type) return '';
-    return type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+    const labels = {
+        full_time: 'Temps plein',
+        part_time: 'Temps partiel',
+        contract: 'CDD',
+        internship: 'Stage',
+        freelance: 'Freelance',
+        remote: 'Télétravail',
+        on_site: 'Sur site',
+        hybrid: 'Hybride',
+        entry: 'Débutant',
+        mid: 'Intermédiaire',
+        senior: 'Senior',
+        executive: 'Cadre dirigeant',
+    };
+    return labels[type] || type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 }
 </script>
 
 <template>
     <PublicLayout>
-        <Head :title="`Careers at ${company.name}`" />
+        <Head :title="`Carrières chez ${company.name}`" />
 
         <!-- Hero -->
         <div class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-slate-900">Join {{ company.name }}</h1>
-            <p class="mt-2 text-lg text-slate-600">Explore our open positions and find your next opportunity.</p>
+            <h1 class="text-3xl font-bold text-slate-900">Rejoignez {{ company.name }}</h1>
+            <p class="mt-2 text-lg text-slate-600">Découvrez nos postes ouverts et trouvez votre prochaine opportunité.</p>
         </div>
 
         <!-- Filters -->
@@ -53,7 +67,7 @@ function formatType(type) {
                 <input
                     v-model="search"
                     type="text"
-                    placeholder="Search positions..."
+                    placeholder="Rechercher des postes..."
                     class="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                     @keyup.enter="applyFilters"
                 />
@@ -63,18 +77,18 @@ function formatType(type) {
                 class="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 @change="applyFilters"
             >
-                <option value="">All Types</option>
-                <option value="full_time">Full Time</option>
-                <option value="part_time">Part Time</option>
-                <option value="contract">Contract</option>
-                <option value="internship">Internship</option>
+                <option value="">Tous les types</option>
+                <option value="full_time">Temps plein</option>
+                <option value="part_time">Temps partiel</option>
+                <option value="contract">CDD</option>
+                <option value="internship">Stage</option>
                 <option value="freelance">Freelance</option>
             </select>
             <button
                 class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
                 @click="applyFilters"
             >
-                Search
+                Rechercher
             </button>
         </div>
 
@@ -105,7 +119,7 @@ function formatType(type) {
         </div>
 
         <div v-else class="rounded-lg border border-slate-200 bg-white py-12 text-center">
-            <p class="text-slate-500">No open positions at the moment. Check back soon!</p>
+            <p class="text-slate-500">Aucun poste ouvert pour le moment. Revenez bientôt !</p>
         </div>
 
         <!-- Pagination -->

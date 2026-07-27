@@ -36,7 +36,7 @@ const chartData = computed(() => ({
     labels: props.data.map((d) => d.period),
     datasets: [
         {
-            label: 'Days to Hire',
+            label: 'Jours pour recruter',
             data: props.data.map((d) => d.days),
             borderColor: '#6366f1',
             backgroundColor: 'rgba(99, 102, 241, 0.1)',
@@ -65,7 +65,7 @@ const chartOptions = {
             padding: 12,
             cornerRadius: 8,
             callbacks: {
-                label: (context) => `${context.parsed.y} days`,
+                label: (context) => `${context.parsed.y} jours`,
             },
         },
     },
@@ -87,7 +87,7 @@ const chartOptions = {
             ticks: {
                 color: '#94a3b8',
                 font: { size: 12 },
-                callback: (value) => `${value}d`,
+                callback: (value) => `${value}j`,
             },
         },
     },
@@ -96,7 +96,7 @@ const chartOptions = {
 
 <template>
     <div v-if="data.length === 0" class="flex h-64 items-center justify-center text-sm text-slate-400">
-        No time-to-hire data available yet.
+        Aucune donnée de délai de recrutement disponible pour le moment.
     </div>
     <div v-else class="h-64">
         <Line :data="chartData" :options="chartOptions" />

@@ -65,7 +65,7 @@ function submit() {
 }
 
 function deleteTemplate(template) {
-    if (!confirm(`Are you sure you want to delete the template "${template.name}"?`)) return;
+    if (!confirm(`Êtes-vous sûr de vouloir supprimer le modèle "${template.name}" ?`)) return;
     router.delete(route('offer-templates.destroy', template.id), {
         preserveScroll: true,
     });
@@ -86,16 +86,16 @@ const placeholderHints = [
         <!-- Header -->
         <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-2xl font-bold text-slate-900">Offer Templates</h1>
+                <h1 class="text-2xl font-bold text-slate-900">Modèles d'offres</h1>
                 <p class="mt-1 text-sm text-slate-500">
-                    Create and manage reusable offer letter templates.
+                    Créez et gérez des modèles de lettres d'offre réutilisables.
                 </p>
             </div>
             <Button v-if="!showForm" variant="primary" @click="openCreateForm">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
-                New Template
+                Nouveau modèle
             </Button>
         </div>
 
@@ -110,21 +110,21 @@ const placeholderHints = [
         >
             <div v-if="showForm" class="mb-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 class="text-lg font-semibold text-slate-900">
-                    {{ editingTemplate ? 'Edit Template' : 'Create New Template' }}
+                    {{ editingTemplate ? 'Modifier le modèle' : 'Créer un nouveau modèle' }}
                 </h2>
 
                 <form @submit.prevent="submit" class="mt-4 space-y-4">
                     <Input
                         v-model="form.name"
-                        label="Template Name"
-                        placeholder="e.g. Standard Full-Time Offer"
+                        label="Nom du modèle"
+                        placeholder="ex. Offre CDI standard"
                         :error="form.errors.name"
                         required
                     />
 
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-slate-700">
-                            Content
+                            Contenu
                             <span class="text-red-500">*</span>
                         </label>
                         <TemplateEditor v-model="form.content" />
@@ -135,7 +135,7 @@ const placeholderHints = [
 
                     <!-- Placeholder hints -->
                     <div class="rounded-lg bg-slate-50 p-3">
-                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Available Placeholders</p>
+                        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Variables disponibles</p>
                         <div class="mt-2 flex flex-wrap gap-2">
                             <span
                                 v-for="placeholder in placeholderHints"
@@ -154,10 +154,10 @@ const placeholderHints = [
                             :loading="form.processing"
                             :disabled="form.processing"
                         >
-                            {{ editingTemplate ? 'Update Template' : 'Create Template' }}
+                            {{ editingTemplate ? 'Mettre à jour le modèle' : 'Créer le modèle' }}
                         </Button>
                         <Button variant="secondary" @click="cancelForm">
-                            Cancel
+                            Annuler
                         </Button>
                     </div>
                 </form>
@@ -175,16 +175,16 @@ const placeholderHints = [
                     <div class="flex-1">
                         <h3 class="text-base font-semibold text-slate-900">{{ template.name }}</h3>
                         <p class="mt-1 line-clamp-2 text-sm text-slate-500">
-                            {{ template.content ? template.content.replace(/<[^>]*>/g, '').slice(0, 200) : 'No content' }}
+                            {{ template.content ? template.content.replace(/<[^>]*>/g, '').slice(0, 200) : 'Aucun contenu' }}
                         </p>
                         <p class="mt-2 text-xs text-slate-400">
-                            Last updated: {{ new Date(template.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) }}
+                            Dernière mise à jour : {{ new Date(template.updated_at).toLocaleDateString('fr-FR', { month: 'short', day: 'numeric', year: 'numeric' }) }}
                         </p>
                     </div>
                     <div class="ml-4 flex items-center gap-2">
                         <button
                             class="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
-                            title="Edit template"
+                            title="Modifier le modèle"
                             @click="openEditForm(template)"
                         >
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -193,7 +193,7 @@ const placeholderHints = [
                         </button>
                         <button
                             class="rounded-lg p-2 text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600"
-                            title="Delete template"
+                            title="Supprimer le modèle"
                             @click="deleteTemplate(template)"
                         >
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -213,10 +213,10 @@ const placeholderHints = [
             <svg class="h-12 w-12 text-slate-300" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            <p class="mt-3 text-sm font-medium text-slate-500">No templates yet</p>
-            <p class="mt-1 text-sm text-slate-400">Create your first offer letter template to get started.</p>
+            <p class="mt-3 text-sm font-medium text-slate-500">Aucun modèle pour le moment</p>
+            <p class="mt-1 text-sm text-slate-400">Créez votre premier modèle de lettre d'offre pour commencer.</p>
             <Button variant="primary" size="sm" class="mt-4" @click="openCreateForm">
-                Create Template
+                Créer un modèle
             </Button>
         </div>
     </AppLayout>

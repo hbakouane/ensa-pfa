@@ -74,39 +74,39 @@ function submit() {
         <div class="mb-8">
             <div class="flex items-center gap-2 text-sm text-slate-500">
                 <Link :href="route('candidates.index')" class="hover:text-indigo-600">
-                    Candidates
+                    Candidats
                 </Link>
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
-                <span class="text-slate-700">Add Candidate</span>
+                <span class="text-slate-700">Ajouter un candidat</span>
             </div>
-            <h1 class="mt-2 text-2xl font-bold text-slate-900">Add New Candidate</h1>
+            <h1 class="mt-2 text-2xl font-bold text-slate-900">Ajouter un nouveau candidat</h1>
         </div>
 
         <form @submit.prevent="submit" class="space-y-8">
             <!-- Personal Information -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Personal Information</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">Informations personnelles</h2>
 
                 <div class="grid gap-5 sm:grid-cols-2">
                     <Input
                         v-model="form.first_name"
-                        label="First Name"
+                        label="Prénom"
                         placeholder="John"
                         :error="form.errors.first_name"
                         required
                     />
                     <Input
                         v-model="form.last_name"
-                        label="Last Name"
+                        label="Nom"
                         placeholder="Doe"
                         :error="form.errors.last_name"
                         required
                     />
                     <Input
                         v-model="form.email"
-                        label="Email"
+                        label="E-mail"
                         type="email"
                         placeholder="john@example.com"
                         :error="form.errors.email"
@@ -114,21 +114,21 @@ function submit() {
                     />
                     <Input
                         v-model="form.phone"
-                        label="Phone"
+                        label="Téléphone"
                         type="tel"
                         placeholder="+1 (555) 000-0000"
                         :error="form.errors.phone"
                     />
                     <Input
                         v-model="form.headline"
-                        label="Headline"
+                        label="Titre professionnel"
                         placeholder="Senior Software Engineer"
                         :error="form.errors.headline"
                     />
                     <Input
                         v-model="form.location"
-                        label="Location"
-                        placeholder="New York, NY"
+                        label="Lieu"
+                        placeholder="Paris, France"
                         :error="form.errors.location"
                     />
                     <Input
@@ -149,9 +149,9 @@ function submit() {
                     <div class="sm:col-span-2">
                         <Textarea
                             v-model="form.summary"
-                            label="Summary"
+                            label="Résumé"
                             rows="3"
-                            placeholder="Brief professional summary..."
+                            placeholder="Résumé professionnel bref..."
                             :error="form.errors.summary"
                         />
                     </div>
@@ -160,7 +160,7 @@ function submit() {
 
             <!-- Resume Upload -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Resume</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">CV</h2>
 
                 <div>
                     <label
@@ -170,10 +170,10 @@ function submit() {
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                         </svg>
                         <p class="mt-2 text-sm text-slate-600">
-                            <span class="font-medium text-indigo-600">Click to upload</span>
-                            or drag and drop
+                            <span class="font-medium text-indigo-600">Cliquer pour télécharger</span>
+                            ou glisser-déposer
                         </p>
-                        <p class="mt-1 text-xs text-slate-400">PDF, DOC, DOCX (max 10MB)</p>
+                        <p class="mt-1 text-xs text-slate-400">PDF, DOC, DOCX (max 10 Mo)</p>
                         <input
                             type="file"
                             class="hidden"
@@ -197,19 +197,19 @@ function submit() {
 
             <!-- Skills -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Skills</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">Compétences</h2>
 
                 <div class="flex gap-2">
                     <div class="flex-1">
                         <input
                             v-model="newSkill"
                             type="text"
-                            placeholder="Add a skill..."
+                            placeholder="Ajouter une compétence..."
                             class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                             @keydown.enter.prevent="addSkill"
                         />
                     </div>
-                    <Button variant="secondary" @click="addSkill">Add</Button>
+                    <Button variant="secondary" @click="addSkill">Ajouter</Button>
                 </div>
 
                 <div v-if="form.skills.length" class="mt-3 flex flex-wrap gap-2">
@@ -235,12 +235,12 @@ function submit() {
             <!-- Experience -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-slate-900">Experience</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Expérience</h2>
                     <Button variant="ghost" size="sm" @click="addExperience">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-                        Add
+                        Ajouter
                     </Button>
                 </div>
 
@@ -264,25 +264,25 @@ function submit() {
                         <div class="grid gap-4 sm:grid-cols-2">
                             <Input
                                 v-model="exp.company"
-                                label="Company"
-                                placeholder="Company name"
+                                label="Entreprise"
+                                placeholder="Nom de l'entreprise"
                                 :error="form.errors[`experiences.${idx}.company`]"
                             />
                             <Input
                                 v-model="exp.title"
-                                label="Title"
-                                placeholder="Job title"
+                                label="Titre"
+                                placeholder="Intitulé du poste"
                                 :error="form.errors[`experiences.${idx}.title`]"
                             />
                             <Input
                                 v-model="exp.start_date"
-                                label="Start Date"
+                                label="Date de début"
                                 type="date"
                                 :error="form.errors[`experiences.${idx}.start_date`]"
                             />
                             <Input
                                 v-model="exp.end_date"
-                                label="End Date"
+                                label="Date de fin"
                                 type="date"
                                 :error="form.errors[`experiences.${idx}.end_date`]"
                             />
@@ -291,7 +291,7 @@ function submit() {
                                     v-model="exp.description"
                                     label="Description"
                                     rows="2"
-                                    placeholder="Brief description of responsibilities..."
+                                    placeholder="Brève description des responsabilités..."
                                     :error="form.errors[`experiences.${idx}.description`]"
                                 />
                             </div>
@@ -303,12 +303,12 @@ function submit() {
             <!-- Education -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-slate-900">Education</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Formation</h2>
                     <Button variant="ghost" size="sm" @click="addEducation">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
-                        Add
+                        Ajouter
                     </Button>
                 </div>
 
@@ -332,32 +332,32 @@ function submit() {
                         <div class="grid gap-4 sm:grid-cols-2">
                             <Input
                                 v-model="edu.institution"
-                                label="Institution"
-                                placeholder="University name"
+                                label="Établissement"
+                                placeholder="Nom de l'université"
                                 :error="form.errors[`educations.${idx}.institution`]"
                             />
                             <Input
                                 v-model="edu.degree"
-                                label="Degree"
-                                placeholder="Bachelor's, Master's, etc."
+                                label="Diplôme"
+                                placeholder="Licence, Master, etc."
                                 :error="form.errors[`educations.${idx}.degree`]"
                             />
                             <Input
                                 v-model="edu.field"
-                                label="Field of Study"
-                                placeholder="Computer Science"
+                                label="Domaine d'études"
+                                placeholder="Informatique"
                                 :error="form.errors[`educations.${idx}.field`]"
                             />
                             <div class="grid grid-cols-2 gap-3">
                                 <Input
                                     v-model="edu.start_date"
-                                    label="Start"
+                                    label="Début"
                                     type="date"
                                     :error="form.errors[`educations.${idx}.start_date`]"
                                 />
                                 <Input
                                     v-model="edu.end_date"
-                                    label="End"
+                                    label="Fin"
                                     type="date"
                                     :error="form.errors[`educations.${idx}.end_date`]"
                                 />
@@ -370,7 +370,7 @@ function submit() {
             <!-- Actions -->
             <div class="flex items-center justify-end gap-3">
                 <Link :href="route('candidates.index')">
-                    <Button variant="ghost">Cancel</Button>
+                    <Button variant="ghost">Annuler</Button>
                 </Link>
                 <Button
                     type="submit"
@@ -378,7 +378,7 @@ function submit() {
                     :loading="form.processing"
                     :disabled="form.processing"
                 >
-                    Add Candidate
+                    Ajouter le candidat
                 </Button>
             </div>
         </form>

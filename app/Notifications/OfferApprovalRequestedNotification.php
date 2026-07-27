@@ -29,19 +29,19 @@ class OfferApprovalRequestedNotification extends Notification implements ShouldQ
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $candidateName = $this->offer->application->candidate->full_name ?? 'a candidate';
-        $jobTitle = $this->offer->application->job->title ?? 'a position';
+        $candidateName = $this->offer->application->candidate->full_name ?? 'un candidat';
+        $jobTitle = $this->offer->application->job->title ?? 'un poste';
         $salary = number_format($this->offer->salary, 2).' '.$this->offer->salary_currency.' ('.$this->offer->salary_period.')';
 
         return (new MailMessage)
-            ->subject('Offer approval requested')
-            ->greeting('Hello '.$notifiable->name.',')
-            ->line('An offer requires your approval:')
-            ->line('**Candidate:** '.$candidateName)
-            ->line('**Position:** '.$jobTitle)
-            ->line('**Salary:** '.$salary)
-            ->action('Review Offer', route('offers.show', $this->offer))
-            ->line('Please review and approve or reject this offer.');
+            ->subject('Approbation d\'offre demandée')
+            ->greeting('Bonjour '.$notifiable->name.',')
+            ->line('Une offre nécessite votre approbation :')
+            ->line('**Candidat :** '.$candidateName)
+            ->line('**Poste :** '.$jobTitle)
+            ->line('**Salaire :** '.$salary)
+            ->action('Examiner l\'offre', route('offers.show', $this->offer))
+            ->line('Veuillez examiner et approuver ou rejeter cette offre.');
     }
 
     /**
@@ -52,7 +52,7 @@ class OfferApprovalRequestedNotification extends Notification implements ShouldQ
         return [
             'type' => 'offer_approval_requested',
             'offer_id' => $this->offer->id,
-            'message' => 'Offer approval requested for '.$this->offer->application->candidate->full_name ?? 'a candidate',
+            'message' => 'Approbation d\'offre demandée pour '.$this->offer->application->candidate->full_name ?? 'un candidat',
         ];
     }
 }

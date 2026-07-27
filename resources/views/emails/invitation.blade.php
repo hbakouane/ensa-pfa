@@ -1,22 +1,22 @@
 @component('mail::message')
-# You've Been Invited!
+# Vous êtes invité(e) !
 
-Hello,
+Bonjour,
 
-**{{ $invitedBy->name }}** has invited you to join **{{ $company->name }}** on {{ config('app.name') }}.
+**{{ $invitedBy->name }}** vous a invité(e) à rejoindre **{{ $company->name }}** sur {{ config('app.name') }}.
 
-You have been assigned the **{{ ucfirst(str_replace('_', ' ', $role)) }}** role.
+Le rôle **{{ ucfirst(str_replace('_', ' ', $role)) }}** vous a été attribué.
 
 @component('mail::button', ['url' => $acceptUrl])
-Accept Invitation
+Accepter l'invitation
 @endcomponent
 
 @if($expiresAt)
-> **Please note:** This invitation will expire on **{{ $expiresAt->format('F j, Y \a\t g:i A') }}**. Please accept the invitation before this date.
+> **Veuillez noter :** Cette invitation expirera le **{{ $expiresAt->format('d/m/Y \à H:i') }}**. Veuillez accepter l'invitation avant cette date.
 @endif
 
-If you were not expecting this invitation, you can safely ignore this email.
+Si vous n'attendiez pas cette invitation, vous pouvez ignorer cet e-mail en toute sécurité.
 
-Regards,<br>
+Cordialement,<br>
 {{ config('app.name') }}
 @endcomponent

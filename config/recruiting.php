@@ -3,38 +3,38 @@
 return [
 
     'default_pipeline_stages' => [
-        ['name' => 'Applied', 'slug' => 'applied', 'color' => '#6B7280', 'position' => 0],
-        ['name' => 'Screening', 'slug' => 'screening', 'color' => '#3B82F6', 'position' => 1],
-        ['name' => 'Interview', 'slug' => 'interview', 'color' => '#8B5CF6', 'position' => 2],
-        ['name' => 'Assessment', 'slug' => 'assessment', 'color' => '#F59E0B', 'position' => 3],
-        ['name' => 'Offer', 'slug' => 'offer', 'color' => '#10B981', 'position' => 4],
-        ['name' => 'Hired', 'slug' => 'hired', 'color' => '#059669', 'position' => 5],
+        ['name' => 'Candidature', 'slug' => 'applied', 'color' => '#6B7280', 'position' => 0],
+        ['name' => 'Présélection', 'slug' => 'screening', 'color' => '#3B82F6', 'position' => 1],
+        ['name' => 'Entretien', 'slug' => 'interview', 'color' => '#8B5CF6', 'position' => 2],
+        ['name' => 'Évaluation', 'slug' => 'assessment', 'color' => '#F59E0B', 'position' => 3],
+        ['name' => 'Offre', 'slug' => 'offer', 'color' => '#10B981', 'position' => 4],
+        ['name' => 'Embauché', 'slug' => 'hired', 'color' => '#059669', 'position' => 5],
     ],
 
     'job_statuses' => ['draft', 'published', 'closed', 'archived'],
 
     'employment_types' => [
-        'full_time' => 'Full Time',
-        'part_time' => 'Part Time',
-        'contract' => 'Contract',
-        'temporary' => 'Temporary',
-        'internship' => 'Internship',
+        'full_time' => 'Temps plein',
+        'part_time' => 'Temps partiel',
+        'contract' => 'Contrat',
+        'temporary' => 'Temporaire',
+        'internship' => 'Stage',
         'freelance' => 'Freelance',
     ],
 
     'experience_levels' => [
-        'entry' => 'Entry Level',
-        'mid' => 'Mid Level',
+        'entry' => 'Débutant',
+        'mid' => 'Intermédiaire',
         'senior' => 'Senior',
         'lead' => 'Lead',
-        'executive' => 'Executive',
+        'executive' => 'Dirigeant',
     ],
 
     'currency' => env('RECRUITING_CURRENCY', 'USD'),
 
     'plans' => [
         'free' => [
-            'name' => 'Free',
+            'name' => 'Gratuit',
             'max_jobs' => 2,
             'max_candidates' => 50,
             'max_users' => 2,
@@ -62,7 +62,7 @@ return [
             'stripe_yearly_price_id' => env('STRIPE_PRO_YEARLY_PRICE_ID'),
         ],
         'enterprise' => [
-            'name' => 'Enterprise',
+            'name' => 'Entreprise',
             'max_jobs' => -1, // unlimited
             'max_candidates' => -1,
             'max_users' => -1,

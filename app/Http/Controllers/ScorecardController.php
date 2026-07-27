@@ -51,6 +51,6 @@ class ScorecardController extends Controller
             }
         }
 
-        return back()->with('success', 'Scorecard submitted successfully.');
+        return back()->with('success', 'Fiche d\'évaluation soumise avec succès.');
     }
 }

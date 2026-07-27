@@ -1,36 +1,36 @@
 @component('mail::message')
-# Interview Scheduled
+# Entretien planifié
 
-Hello {{ $candidate->first_name }},
+Bonjour {{ $candidate->first_name }},
 
-We are pleased to inform you that an interview has been scheduled for the **{{ $interview->application->job->title }}** position.
+Nous avons le plaisir de vous informer qu'un entretien a été planifié pour le poste **{{ $interview->application->job->title }}**.
 
-## Interview Details
+## Détails de l'entretien
 
-| Detail | Info |
+| Détail | Info |
 |:-------|:-----|
-| **Date** | {{ $interview->scheduled_at->format('l, F j, Y') }} |
-| **Time** | {{ $interview->scheduled_at->format('g:i A') }} |
-| **Duration** | {{ $interview->duration_minutes }} minutes |
+| **Date** | {{ $interview->scheduled_at->format('l j F Y') }} |
+| **Heure** | {{ $interview->scheduled_at->format('H:i') }} |
+| **Durée** | {{ $interview->duration_minutes }} minutes |
 | **Type** | {{ str_replace('_', ' ', ucfirst($interview->type)) }} |
 @if($interview->location)
-| **Location** | {{ $interview->location }} |
+| **Lieu** | {{ $interview->location }} |
 @endif
 @if($interview->meeting_url)
-| **Meeting Link** | [Join Meeting]({{ $interview->meeting_url }}) |
+| **Lien de la réunion** | [Rejoindre la réunion]({{ $interview->meeting_url }}) |
 @endif
 
 @if($interview->notes)
-**Additional Notes:**
+**Notes supplémentaires :**
 {{ $interview->notes }}
 @endif
 
 @component('mail::button', ['url' => $viewUrl])
-View Interview Details
+Voir les détails de l'entretien
 @endcomponent
 
-Please make sure to join on time. If you need to reschedule, please reach out to us as soon as possible.
+Veuillez vous connecter à l'heure prévue. Si vous devez reporter l'entretien, veuillez nous contacter dès que possible.
 
-Regards,<br>
+Cordialement,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -74,12 +74,12 @@ function formatTimeAgo(dateString) {
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
 
-    if (diffSecs < 60) return 'just now';
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
+    if (diffSecs < 60) return 'à l\'instant';
+    if (diffMins < 60) return `il y a ${diffMins}m`;
+    if (diffHours < 24) return `il y a ${diffHours}h`;
+    if (diffDays < 7) return `il y a ${diffDays}j`;
 
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('fr-FR', {
         month: 'short',
         day: 'numeric',
     });
@@ -146,7 +146,7 @@ onUnmounted(() => {
                         class="text-xs font-medium text-indigo-600 transition-colors hover:text-indigo-800"
                         @click="markAllAsRead"
                     >
-                        Mark all as read
+                        Tout marquer comme lu
                     </button>
                 </div>
 
@@ -199,7 +199,7 @@ onUnmounted(() => {
                     <svg class="h-8 w-8 text-slate-200" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                     </svg>
-                    <p class="mt-2 text-sm text-slate-400">No notifications</p>
+                    <p class="mt-2 text-sm text-slate-400">Aucune notification</p>
                 </div>
             </div>
         </Transition>

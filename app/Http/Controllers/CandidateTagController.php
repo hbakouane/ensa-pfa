@@ -37,7 +37,7 @@ class CandidateTagController extends Controller
         $candidate->tags()->syncWithoutDetaching($validated['tag_ids']);
 
         return response()->json([
-            'message' => 'Tags attached successfully.',
+            'message' => 'Tags attachés avec succès.',
             'tags' => $candidate->tags()->get(),
         ]);
     }
@@ -52,7 +52,7 @@ class CandidateTagController extends Controller
         $candidate->tags()->detach($validated['tag_ids']);
 
         return response()->json([
-            'message' => 'Tags detached successfully.',
+            'message' => 'Tags détachés avec succès.',
             'tags' => $candidate->tags()->get(),
         ]);
     }

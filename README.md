@@ -1,80 +1,80 @@
-# RecruitAI — AI-Powered Recruiting Platform
+# RecruitAI — Plateforme de recrutement propulsée par l'IA
 
-A mid-to-large Laravel SaaS application where companies post jobs, candidates apply with resumes, and AI handles resume parsing, candidate scoring, and match suggestions. Includes interview scheduling, Kanban pipeline management, offer letter generation, team collaboration, analytics, and Stripe billing.
+Une application SaaS Laravel de taille moyenne à grande permettant aux entreprises de publier des offres d'emploi, aux candidats de postuler avec leur CV, et à l'IA de gérer l'analyse des CV, la notation des candidats et les suggestions de correspondance. Inclut la planification d'entretiens, la gestion de pipeline Kanban, la génération de lettres d'offre, la collaboration d'équipe, les tableaux de bord analytiques et la facturation via Stripe.
 
 ---
 
-## Tech Stack
+## Stack technique
 
-| Layer | Technology |
-|-------|-----------|
-| **Backend** | Laravel 11+ with Inertia.js |
+| Couche | Technologie |
+|--------|------------|
+| **Backend** | Laravel 11+ avec Inertia.js |
 | **Frontend** | Vue 3 + Inertia |
-| **AI** | OpenAI API (GPT-4o) via Structured Outputs |
-| **Auth** | Multi-tenant (column-based `company_id` scoping) + Spatie Permissions (teams mode) |
-| **Database** | MySQL (SQLite for local dev) |
-| **Queue** | Redis (3 queues: `default`, `ai`, `notifications`) |
-| **Real-time** | Laravel Reverb + Echo |
-| **Payments** | Stripe via Laravel Cashier |
-| **Search** | Laravel Scout + Meilisearch |
+| **IA** | API OpenAI (GPT-4o) via Structured Outputs |
+| **Authentification** | Multi-tenant (isolation par colonne `company_id`) + Spatie Permissions (mode équipes) |
+| **Base de données** | MySQL (SQLite pour le développement local) |
+| **Files d'attente** | Redis (3 files : `default`, `ai`, `notifications`) |
+| **Temps réel** | Laravel Reverb + Echo |
+| **Paiements** | Stripe via Laravel Cashier |
+| **Recherche** | Laravel Scout + Meilisearch |
 | **PDF** | barryvdh/laravel-dompdf |
-| **Storage** | S3 for resumes/files |
+| **Stockage** | S3 pour les CV/fichiers |
 
 ---
 
-## Architecture Decisions
+## Décisions d'architecture
 
-1. **Multi-tenancy**: Column-based with `company_id` + a `BelongsToCompany` trait that applies a global scope. Candidates are global (shared across companies via a pivot table), everything else is company-scoped.
+1. **Multi-tenancy** : Basé sur une colonne `company_id` + un trait `BelongsToCompany` qui applique un scope global. Les candidats sont globaux (partagés entre entreprises via une table pivot), tout le reste est isolé par entreprise.
 
-2. **AI Service Layer**: `app/Services/AI/` namespace — `OpenAIClient` (retries, rate limits, token logging), `ResumeParser`, `CandidateScorer`, `CandidateSummarizer`, `InterviewQuestionGenerator`. All AI calls dispatched as queued jobs on the `ai` queue.
+2. **Couche de services IA** : Namespace `app/Services/AI/` — `OpenAIClient` (tentatives, limites de débit, journalisation des tokens), `ResumeParser`, `CandidateScorer`, `CandidateSummarizer`, `InterviewQuestionGenerator`. Tous les appels IA sont dispatchés comme des jobs en file d'attente sur la file `ai`.
 
-3. **Model naming**: `JobPosting` model (not `Job`) to avoid Laravel's queue Job class collision, with `protected $table = 'jobs'`.
+3. **Nommage des modèles** : Modèle `JobPosting` (et non `Job`) pour éviter la collision avec la classe Job des files d'attente de Laravel, avec `protected $table = 'jobs'`.
 
-4. **Kanban**: RESTful PATCH endpoints, `vuedraggable` on frontend, optimistic UI with server reconciliation + Echo real-time sync.
+4. **Kanban** : Points de terminaison RESTful PATCH, `vuedraggable` côté frontend, UI optimiste avec réconciliation serveur + synchronisation temps réel via Echo.
 
-5. **Actions pattern**: Business logic encapsulated in single-purpose Action classes under `app/Actions/`, keeping controllers thin.
+5. **Pattern Actions** : La logique métier est encapsulée dans des classes Action à responsabilité unique sous `app/Actions/`, gardant les contrôleurs légers.
 
 ---
 
-## Setup
+## Installation
 
 ```bash
-# Clone and install
+# Cloner et installer
 cd RecruitAI
 composer install
 npm install
 
-# Environment
+# Environnement
 cp .env.example .env
 php artisan key:generate
 
-# Configure your .env:
-# - Database credentials (DB_CONNECTION, DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
-# - OpenAI API key (OPENAI_API_KEY)
-# - Stripe keys (STRIPE_KEY, STRIPE_SECRET, STRIPE_WEBHOOK_SECRET)
+# Configurez votre .env :
+# - Identifiants de base de données (DB_CONNECTION, DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+# - Clé API OpenAI (OPENAI_API_KEY)
+# - Clés Stripe (STRIPE_KEY, STRIPE_SECRET, STRIPE_WEBHOOK_SECRET)
 # - Meilisearch (MEILISEARCH_HOST, MEILISEARCH_KEY)
-# - Redis for queues
-# - S3 credentials for file storage (AWS_*)
+# - Redis pour les files d'attente
+# - Identifiants S3 pour le stockage de fichiers (AWS_*)
 
-# Database
+# Base de données
 php artisan migrate
 php artisan db:seed
 
-# Build frontend
+# Compiler le frontend
 npm run dev
 
-# Start queue workers (separate terminals)
+# Démarrer les workers de files d'attente (terminaux séparés)
 php artisan queue:work --queue=default
 php artisan queue:work --queue=ai
 php artisan queue:work --queue=notifications
 
-# Start WebSocket server
+# Démarrer le serveur WebSocket
 php artisan reverb:start
 
-# Start Meilisearch (if using search)
+# Démarrer Meilisearch (si vous utilisez la recherche)
 # meilisearch --master-key=your_key
 
-# Scout index
+# Indexation Scout
 php artisan scout:import "App\Models\JobPosting"
 php artisan scout:import "App\Models\Candidate"
 ```
@@ -83,198 +83,198 @@ php artisan scout:import "App\Models\Candidate"
 
 ## Packages
 
-| Package | Purpose |
+| Package | Utilité |
 |---------|---------|
-| `laravel/breeze` | Auth scaffolding (Inertia + Vue 3) |
-| `spatie/laravel-permission` | Roles & permissions with team support |
-| `laravel/cashier` | Stripe subscriptions |
-| `laravel/scout` + `meilisearch/meilisearch-php` | Full-text search |
-| `laravel/reverb` | WebSocket server |
-| `barryvdh/laravel-dompdf` | PDF generation |
-| `smalot/pdfparser` | Resume text extraction |
-| `league/flysystem-aws-s3-v3` | S3 storage |
-| `vuedraggable@next` (npm) | Kanban drag-and-drop |
-| `@tiptap/vue-3` (npm) | Rich text editor |
-| `chart.js` + `vue-chartjs` (npm) | Analytics charts |
-| `pinia` (npm) | State management |
+| `laravel/breeze` | Scaffolding d'authentification (Inertia + Vue 3) |
+| `spatie/laravel-permission` | Rôles et permissions avec support d'équipes |
+| `laravel/cashier` | Abonnements Stripe |
+| `laravel/scout` + `meilisearch/meilisearch-php` | Recherche plein texte |
+| `laravel/reverb` | Serveur WebSocket |
+| `barryvdh/laravel-dompdf` | Génération de PDF |
+| `smalot/pdfparser` | Extraction de texte depuis les CV |
+| `league/flysystem-aws-s3-v3` | Stockage S3 |
+| `vuedraggable@next` (npm) | Glisser-déposer Kanban |
+| `@tiptap/vue-3` (npm) | Éditeur de texte enrichi |
+| `chart.js` + `vue-chartjs` (npm) | Graphiques analytiques |
+| `pinia` (npm) | Gestion d'état |
 
 ---
 
-## Phased Implementation
+## Implémentation par phases
 
-### Phase 1: Foundation
+### Phase 1 : Fondation
 
-**Goal**: Project scaffolding, auth, multi-tenancy, layout shell.
+**Objectif** : Scaffolding du projet, authentification, multi-tenancy, structure de la mise en page.
 
-**What was built**:
-- Laravel project with Breeze (Vue + Inertia), all packages installed
-- Config files: `config/ai.php` (OpenAI settings, rate limits, scoring weights), `config/recruiting.php` (pipeline stages, job statuses, employment types, plan definitions, offer placeholders)
-- Migrations: `companies`, modified `users` (company_id, type, avatar_path), `company_invitations`, `plans`, Spatie permission tables
-- Models: `Company` (with Billable), `User` (with HasRoles), `CompanyInvitation`, `Plan`
-- `BelongsToCompany` trait with `CompanyScope` global scope — foundation of data isolation
-- Middleware: `SetCurrentCompany` (sets tenant context), `EnsureCompanySubscription` (checks billing status)
-- Seeders: `RolesAndPermissionsSeeder` (owner, admin, recruiter, hiring_manager, interviewer roles with granular permissions), `PlanSeeder` (Free, Starter, Pro, Enterprise)
-- Auth: `CompanyRegistrationController` (registers company + owner user), `InvitationController` (invite/accept team members), `RegisterCompanyAction`
-- Layouts: `AppLayout.vue` (sidebar + top nav), `Sidebar.vue`, `TopNav.vue`, `PublicLayout.vue`, `FlashMessages.vue`, `Dashboard/Index.vue`
+**Ce qui a été construit** :
+- Projet Laravel avec Breeze (Vue + Inertia), tous les packages installés
+- Fichiers de configuration : `config/ai.php` (paramètres OpenAI, limites de débit, pondérations de notation), `config/recruiting.php` (étapes du pipeline, statuts des offres, types d'emploi, définitions des forfaits, variables de remplacement des offres)
+- Migrations : `companies`, `users` modifié (company_id, type, avatar_path), `company_invitations`, `plans`, tables de permissions Spatie
+- Modèles : `Company` (avec Billable), `User` (avec HasRoles), `CompanyInvitation`, `Plan`
+- Trait `BelongsToCompany` avec scope global `CompanyScope` — fondation de l'isolation des données
+- Middleware : `SetCurrentCompany` (définit le contexte du tenant), `EnsureCompanySubscription` (vérifie le statut de facturation)
+- Seeders : `RolesAndPermissionsSeeder` (rôles propriétaire, admin, recruteur, responsable du recrutement, intervieweur avec permissions granulaires), `PlanSeeder` (Gratuit, Starter, Pro, Enterprise)
+- Authentification : `CompanyRegistrationController` (enregistre une entreprise + utilisateur propriétaire), `InvitationController` (inviter/accepter des membres d'équipe), `RegisterCompanyAction`
+- Mises en page : `AppLayout.vue` (barre latérale + navigation supérieure), `Sidebar.vue`, `TopNav.vue`, `PublicLayout.vue`, `FlashMessages.vue`, `Dashboard/Index.vue`
 
-**Verification**: Register a company, login, see dashboard, invite a team member.
-
----
-
-### Phase 2: Core Features
-
-**Goal**: Jobs, candidates, applications, Kanban pipeline, public job board.
-
-**What was built**:
-- Migrations: `departments`, `locations`, `job_categories`, `jobs` (with full schema: salary, remote policy, status workflow), `job_skills`, `job_templates`, `candidates` (global), `candidate_skills`, `candidate_experiences`, `candidate_educations`, `candidate_company` (pivot), `tags`, `candidate_tag`, `pipeline_stages`, `applications` (with AI score fields), `rejection_reasons`, `application_stage_history`
-- Models for all above with full relationships, casts, scopes
-- `JobPosting` model with `$table = 'jobs'`, searchable, published/active/draft scopes
-- `Candidate` model (global, not company-scoped), searchable, with full name accessor
-- Controllers: `JobController` (CRUD + publish/close/archive), `JobBoardController` (public), `CandidateController` (CRUD), `CandidateTagController`, `ApplicationController`, `PipelineController` (Kanban move/reorder), `PipelineStageController`
-- Actions: `CreateJobAction`, `PublishJobAction`, `CreateCandidateAction`, `CreateApplicationAction`, `MoveApplicationStageAction` (records history, fires events), `RejectApplicationAction`
-- Vue pages: Jobs (Index, Create, Edit, Show), Candidates (Index, Show, Create), Pipeline/Show (Kanban board)
-- Vue components: `KanbanBoard.vue`, `KanbanColumn.vue`, `KanbanCard.vue`, base UI components (Button, Modal, DataTable, Badge, Pagination, Input, Select, Textarea)
-- Composable: `useKanban.js` — optimistic drag-and-drop with server reconciliation
-- Public pages: `JobBoard.vue`, `JobDetail.vue`, `ApplicationForm.vue`
-
-**Verification**: Create a job, post it, apply via public board, see application on Kanban, drag between stages.
+**Vérification** : Enregistrer une entreprise, se connecter, voir le tableau de bord, inviter un membre d'équipe.
 
 ---
 
-### Phase 3: AI Integration
+### Phase 2 : Fonctionnalités principales
 
-**Goal**: Resume parsing, candidate scoring, summaries, interview questions.
+**Objectif** : Offres d'emploi, candidats, candidatures, pipeline Kanban, tableau d'offres public.
 
-**What was built**:
-- Migration: `ai_usage_logs` (tracks tokens, costs, status per AI call)
-- `OpenAIClient` service — HTTP wrapper with retry logic, exponential backoff, rate limiting, token usage logging, Structured Outputs support
-- JSON Schemas: `ResumeSchema` (structured resume data extraction), `ScoreSchema` (0-100 scoring with breakdown)
-- `ResumeParser` — extracts text from PDF via smalot/pdfparser, sends to OpenAI for structured parsing
-- `CandidateScorer` — compares candidate data vs job requirements, returns weighted 0-100 score with breakdown (skills, experience, education, fit)
-- `CandidateSummarizer` — generates 2-3 paragraph professional summaries
-- `InterviewQuestionGenerator` — generates tailored questions with category, difficulty, and evaluation criteria
-- Queue jobs (all on `ai` queue): `ParseResumeJob`, `ScoreCandidateJob`, `BulkScoreCandidatesJob`, `GenerateCandidateSummaryJob`, `GenerateInterviewQuestionsJob`
-- `AIController` — endpoints to trigger AI actions manually
-- `ScoreDisplay.vue` — circular SVG score display with color coding (red/yellow/green)
+**Ce qui a été construit** :
+- Migrations : `departments`, `locations`, `job_categories`, `jobs` (avec schéma complet : salaire, politique de télétravail, workflow de statut), `job_skills`, `job_templates`, `candidates` (global), `candidate_skills`, `candidate_experiences`, `candidate_educations`, `candidate_company` (pivot), `tags`, `candidate_tag`, `pipeline_stages`, `applications` (avec champs de score IA), `rejection_reasons`, `application_stage_history`
+- Modèles pour tout ce qui précède avec relations complètes, casts, scopes
+- Modèle `JobPosting` avec `$table = 'jobs'`, recherchable, scopes published/active/draft
+- Modèle `Candidate` (global, non isolé par entreprise), recherchable, avec accesseur de nom complet
+- Contrôleurs : `JobController` (CRUD + publier/clôturer/archiver), `JobBoardController` (public), `CandidateController` (CRUD), `CandidateTagController`, `ApplicationController`, `PipelineController` (déplacement/réordonnancement Kanban), `PipelineStageController`
+- Actions : `CreateJobAction`, `PublishJobAction`, `CreateCandidateAction`, `CreateApplicationAction`, `MoveApplicationStageAction` (enregistre l'historique, déclenche des événements), `RejectApplicationAction`
+- Pages Vue : Jobs (Index, Create, Edit, Show), Candidates (Index, Show, Create), Pipeline/Show (tableau Kanban)
+- Composants Vue : `KanbanBoard.vue`, `KanbanColumn.vue`, `KanbanCard.vue`, composants UI de base (Button, Modal, DataTable, Badge, Pagination, Input, Select, Textarea)
+- Composable : `useKanban.js` — glisser-déposer optimiste avec réconciliation serveur
+- Pages publiques : `JobBoard.vue`, `JobDetail.vue`, `ApplicationForm.vue`
 
-**Verification**: Upload a resume, verify AI parses it, check candidate score, generate summary.
-
----
-
-### Phase 4: Advanced Features
-
-**Goal**: Interviews, scorecards, offers, collaboration, real-time.
-
-**What was built**:
-- Migrations: `interviews`, `interview_interviewers` (pivot with response tracking), `interview_scorecards`, `scorecard_criteria`, `offer_templates`, `offers` (with token-based public response), `offer_approvals`, `activities` (polymorphic activity log), `comments` (threaded, with @mentions), `media` (polymorphic file attachments)
-- Models for all above with relationships
-- Actions: `ScheduleInterviewAction`, `CreateOfferAction`, `SendOfferAction`, `GenerateOfferPdfAction`
-- Services: `OfferRenderer` (placeholder replacement), `OfferPdfGenerator` (DomPDF to S3)
-- Controllers: `InterviewController`, `ScorecardController`, `OfferController`, `OfferTemplateController`, `OfferResponseController` (public, tokenized), `CommentController`, `ActivityController`, `NotificationController`
-- Notifications: `InterviewScheduledNotification`, `OfferSentNotification`, `OfferApprovalRequestedNotification`, `MentionedInCommentNotification`
-- Events + Broadcasting: `ApplicationStageChanged`, `CommentAdded`, `InterviewScheduled` — broadcast on `private-company.{id}` channels
-- Vue pages: Interviews (Index, Show), Offers (Index, Create, Show, Templates), OfferResponse (public)
-- Vue components: `SchedulerModal.vue`, `ScorecardForm.vue`, `OfferPreview.vue`, `TemplateEditor.vue`, `CommentThread.vue`, `CommentInput.vue` (with @mentions), `ActivityFeed.vue`, `NotificationDropdown.vue`
-- Composables: `useRealtime.js` (Echo subscriptions), `useNotifications.js` (notification management)
-
-**Verification**: Schedule interview, fill scorecard, create and send offer, verify real-time notifications.
+**Vérification** : Créer une offre d'emploi, la publier, postuler via le tableau public, voir la candidature sur le Kanban, glisser entre les étapes.
 
 ---
 
-### Phase 5: Analytics & Billing
+### Phase 3 : Intégration IA
 
-**Goal**: Analytics dashboard, Stripe subscription management.
+**Objectif** : Analyse de CV, notation des candidats, résumés, questions d'entretien.
 
-**What was built**:
-- Migrations: `source_tracking`, Cashier columns on `companies`, `subscriptions`, `subscription_items`
-- Services: `AnalyticsService` (overview stats, date-filtered), `TimeToHireCalculator` (average/median/by-department/trends), `PipelineConversionCalculator` (stage-by-stage conversion and drop-off rates)
-- Services: `SubscriptionService` (subscribe, change plan, cancel, resume via Cashier), `UsageLimitChecker` (enforces plan limits: jobs, candidates, users, AI parses)
-- Middleware: `CheckUsageLimits` — blocks creation routes when plan limits exceeded
-- Controllers: `AnalyticsController` (overview, time-to-hire, pipeline conversion, sources, team performance), `BillingController` (subscribe, change plan, cancel, resume, invoices, payment method)
-- Vue pages: `Analytics/Index.vue`, `Settings/Billing.vue`
-- Vue components: `MetricCard.vue`, `PipelineFunnel.vue` (CSS-based funnel), `TimeToHireChart.vue` (chart.js line), `SourceBreakdownChart.vue` (chart.js doughnut), `PricingTable.vue`, `SubscriptionManager.vue`, `UsageIndicator.vue` (color-coded progress bar)
+**Ce qui a été construit** :
+- Migration : `ai_usage_logs` (suivi des tokens, coûts, statut par appel IA)
+- Service `OpenAIClient` — wrapper HTTP avec logique de tentatives, backoff exponentiel, limitation de débit, journalisation de l'utilisation des tokens, support des Structured Outputs
+- Schémas JSON : `ResumeSchema` (extraction structurée de données de CV), `ScoreSchema` (notation 0-100 avec détail)
+- `ResumeParser` — extrait le texte d'un PDF via smalot/pdfparser, envoie à OpenAI pour une analyse structurée
+- `CandidateScorer` — compare les données du candidat aux exigences du poste, retourne un score pondéré 0-100 avec détail (compétences, expérience, formation, adéquation)
+- `CandidateSummarizer` — génère des résumés professionnels de 2-3 paragraphes
+- `InterviewQuestionGenerator` — génère des questions sur mesure avec catégorie, difficulté et critères d'évaluation
+- Jobs en file d'attente (tous sur la file `ai`) : `ParseResumeJob`, `ScoreCandidateJob`, `BulkScoreCandidatesJob`, `GenerateCandidateSummaryJob`, `GenerateInterviewQuestionsJob`
+- `AIController` — points de terminaison pour déclencher manuellement les actions IA
+- `ScoreDisplay.vue` — affichage circulaire SVG du score avec code couleur (rouge/jaune/vert)
 
-**Verification**: Subscribe to a paid plan, verify limits enforced, check analytics dashboard.
-
----
-
-### Phase 6: Polish
-
-**Goal**: Search, emails, performance, testing.
-
-**What was built**:
-- Scout + Meilisearch configured, `JobPosting` and `Candidate` searchable
-- `GlobalSearch.vue` — Cmd+K command palette with debounced search, grouped results, keyboard navigation
-- `SearchController` — searches across jobs and candidates
-- Blade email templates: interview-scheduled, offer-sent, offer-approval-requested, invitation
-- Performance: `preventLazyLoading()` and `preventSilentlyDiscardingAttributes()` in dev
-- Tests:
-  - Unit: `ResumeParserTest`, `CandidateScorerTest`, `TimeToHireCalculatorTest`, `UsageLimitCheckerTest`
-  - Feature: `CompanyRegistrationTest`, `JobControllerTest`, `PipelineControllerTest`, `OfferControllerTest`
-
-**Verification**: Search for candidates/jobs, verify email delivery, run full test suite with `php artisan test`.
+**Vérification** : Téléverser un CV, vérifier que l'IA l'analyse, consulter le score du candidat, générer un résumé.
 
 ---
 
-## Key Files
+### Phase 4 : Fonctionnalités avancées
 
-| File | Why It Matters |
-|------|---------------|
-| `app/Models/Concerns/BelongsToCompany.php` | Foundation of multi-tenancy — data isolation |
-| `app/Models/Scopes/CompanyScope.php` | Global scope that filters all queries by company_id |
-| `app/Http/Middleware/SetCurrentCompany.php` | Sets tenant context for every request |
-| `app/Services/AI/OpenAIClient.php` | All AI features depend on this wrapper |
-| `app/Services/AI/ResumeParser.php` | Core AI feature — structured resume extraction |
-| `app/Services/AI/CandidateScorer.php` | AI scoring engine for candidate-job matching |
-| `app/Actions/Applications/MoveApplicationStageAction.php` | Core pipeline logic — history, events |
-| `resources/js/Components/Pipeline/KanbanBoard.vue` | Primary UI — drag-and-drop with real-time sync |
-| `app/Services/Billing/UsageLimitChecker.php` | Enforces plan limits across the system |
-| `config/recruiting.php` | Central configuration for pipeline, plans, job types |
+**Objectif** : Entretiens, fiches d'évaluation, offres, collaboration, temps réel.
 
----
+**Ce qui a été construit** :
+- Migrations : `interviews`, `interview_interviewers` (pivot avec suivi des réponses), `interview_scorecards`, `scorecard_criteria`, `offer_templates`, `offers` (avec réponse publique par token), `offer_approvals`, `activities` (journal d'activité polymorphe), `comments` (avec fils de discussion et @mentions), `media` (pièces jointes polymorphes)
+- Modèles pour tout ce qui précède avec relations
+- Actions : `ScheduleInterviewAction`, `CreateOfferAction`, `SendOfferAction`, `GenerateOfferPdfAction`
+- Services : `OfferRenderer` (remplacement de variables), `OfferPdfGenerator` (DomPDF vers S3)
+- Contrôleurs : `InterviewController`, `ScorecardController`, `OfferController`, `OfferTemplateController`, `OfferResponseController` (public, par token), `CommentController`, `ActivityController`, `NotificationController`
+- Notifications : `InterviewScheduledNotification`, `OfferSentNotification`, `OfferApprovalRequestedNotification`, `MentionedInCommentNotification`
+- Événements + Diffusion : `ApplicationStageChanged`, `CommentAdded`, `InterviewScheduled` — diffusés sur les canaux `private-company.{id}`
+- Pages Vue : Interviews (Index, Show), Offers (Index, Create, Show, Templates), OfferResponse (public)
+- Composants Vue : `SchedulerModal.vue`, `ScorecardForm.vue`, `OfferPreview.vue`, `TemplateEditor.vue`, `CommentThread.vue`, `CommentInput.vue` (avec @mentions), `ActivityFeed.vue`, `NotificationDropdown.vue`
+- Composables : `useRealtime.js` (abonnements Echo), `useNotifications.js` (gestion des notifications)
 
-## Roles & Permissions
-
-| Role | Key Permissions |
-|------|----------------|
-| **Owner** | Full access including billing management |
-| **Admin** | Everything except billing |
-| **Recruiter** | Jobs, candidates, applications, interviews, offers, AI features |
-| **Hiring Manager** | View jobs/candidates, move pipeline stages, interviews, approve offers |
-| **Interviewer** | View candidates/applications, submit scorecards |
+**Vérification** : Planifier un entretien, remplir une fiche d'évaluation, créer et envoyer une offre, vérifier les notifications en temps réel.
 
 ---
 
-## API / Route Groups
+### Phase 5 : Analytique et facturation
 
-| Prefix | Purpose |
-|--------|---------|
-| `/` | Public landing page |
-| `/careers/{company:slug}` | Public job board per company |
-| `/offers/respond/{token}` | Public offer response (tokenized) |
-| `/dashboard` | Main dashboard |
-| `/jobs` | Job management CRUD |
-| `/candidates` | Candidate management |
-| `/pipeline/{job}` | Kanban pipeline view |
-| `/interviews` | Interview scheduling |
-| `/offers` | Offer management |
-| `/analytics` | Analytics dashboard |
-| `/billing` | Subscription management |
-| `/ai/*` | AI action endpoints |
-| `/search` | Global search |
-| `/notifications` | Notification management |
+**Objectif** : Tableau de bord analytique, gestion des abonnements Stripe.
+
+**Ce qui a été construit** :
+- Migrations : `source_tracking`, colonnes Cashier sur `companies`, `subscriptions`, `subscription_items`
+- Services : `AnalyticsService` (statistiques d'ensemble, filtrées par date), `TimeToHireCalculator` (moyenne/médiane/par département/tendances), `PipelineConversionCalculator` (taux de conversion et d'abandon étape par étape)
+- Services : `SubscriptionService` (s'abonner, changer de forfait, résilier, reprendre via Cashier), `UsageLimitChecker` (applique les limites du forfait : offres d'emploi, candidats, utilisateurs, analyses IA)
+- Middleware : `CheckUsageLimits` — bloque les routes de création lorsque les limites du forfait sont dépassées
+- Contrôleurs : `AnalyticsController` (vue d'ensemble, délai d'embauche, conversion du pipeline, sources, performance de l'équipe), `BillingController` (s'abonner, changer de forfait, résilier, reprendre, factures, moyen de paiement)
+- Pages Vue : `Analytics/Index.vue`, `Settings/Billing.vue`
+- Composants Vue : `MetricCard.vue`, `PipelineFunnel.vue` (entonnoir en CSS), `TimeToHireChart.vue` (graphique linéaire chart.js), `SourceBreakdownChart.vue` (graphique en anneau chart.js), `PricingTable.vue`, `SubscriptionManager.vue`, `UsageIndicator.vue` (barre de progression avec code couleur)
+
+**Vérification** : S'abonner à un forfait payant, vérifier que les limites sont appliquées, consulter le tableau de bord analytique.
 
 ---
 
-## Queue Configuration
+### Phase 6 : Finition
+
+**Objectif** : Recherche, e-mails, performance, tests.
+
+**Ce qui a été construit** :
+- Scout + Meilisearch configurés, `JobPosting` et `Candidate` recherchables
+- `GlobalSearch.vue` — palette de commandes Cmd+K avec recherche différée, résultats groupés, navigation au clavier
+- `SearchController` — recherche parmi les offres d'emploi et les candidats
+- Templates d'e-mails Blade : entretien planifié, offre envoyée, demande d'approbation d'offre, invitation
+- Performance : `preventLazyLoading()` et `preventSilentlyDiscardingAttributes()` en développement
+- Tests :
+  - Unitaires : `ResumeParserTest`, `CandidateScorerTest`, `TimeToHireCalculatorTest`, `UsageLimitCheckerTest`
+  - Fonctionnels : `CompanyRegistrationTest`, `JobControllerTest`, `PipelineControllerTest`, `OfferControllerTest`
+
+**Vérification** : Rechercher des candidats/offres d'emploi, vérifier l'envoi des e-mails, lancer la suite complète de tests avec `php artisan test`.
+
+---
+
+## Fichiers clés
+
+| Fichier | Pourquoi il est important |
+|---------|--------------------------|
+| `app/Models/Concerns/BelongsToCompany.php` | Fondation du multi-tenancy — isolation des données |
+| `app/Models/Scopes/CompanyScope.php` | Scope global qui filtre toutes les requêtes par company_id |
+| `app/Http/Middleware/SetCurrentCompany.php` | Définit le contexte du tenant pour chaque requête |
+| `app/Services/AI/OpenAIClient.php` | Toutes les fonctionnalités IA dépendent de ce wrapper |
+| `app/Services/AI/ResumeParser.php` | Fonctionnalité IA principale — extraction structurée de CV |
+| `app/Services/AI/CandidateScorer.php` | Moteur de notation IA pour la correspondance candidat-poste |
+| `app/Actions/Applications/MoveApplicationStageAction.php` | Logique principale du pipeline — historique, événements |
+| `resources/js/Components/Pipeline/KanbanBoard.vue` | Interface principale — glisser-déposer avec synchronisation temps réel |
+| `app/Services/Billing/UsageLimitChecker.php` | Applique les limites du forfait dans tout le système |
+| `config/recruiting.php` | Configuration centrale du pipeline, forfaits, types d'emploi |
+
+---
+
+## Rôles et permissions
+
+| Rôle | Permissions clés |
+|------|-----------------|
+| **Propriétaire** | Accès complet incluant la gestion de la facturation |
+| **Admin** | Tout sauf la facturation |
+| **Recruteur** | Offres d'emploi, candidats, candidatures, entretiens, offres, fonctionnalités IA |
+| **Responsable du recrutement** | Voir les offres/candidats, déplacer les étapes du pipeline, entretiens, approuver les offres |
+| **Intervieweur** | Voir les candidats/candidatures, soumettre des fiches d'évaluation |
+
+---
+
+## API / Groupes de routes
+
+| Préfixe | Utilité |
+|---------|---------|
+| `/` | Page d'accueil publique |
+| `/careers/{company:slug}` | Tableau d'offres public par entreprise |
+| `/offers/respond/{token}` | Réponse publique à une offre (par token) |
+| `/dashboard` | Tableau de bord principal |
+| `/jobs` | Gestion des offres d'emploi (CRUD) |
+| `/candidates` | Gestion des candidats |
+| `/pipeline/{job}` | Vue pipeline Kanban |
+| `/interviews` | Planification des entretiens |
+| `/offers` | Gestion des offres |
+| `/analytics` | Tableau de bord analytique |
+| `/billing` | Gestion des abonnements |
+| `/ai/*` | Points de terminaison IA |
+| `/search` | Recherche globale |
+| `/notifications` | Gestion des notifications |
+
+---
+
+## Configuration des files d'attente
 
 ```
-default     — standard jobs (emails, general processing)
-ai          — AI-intensive jobs (resume parsing, scoring, summarization)
-notifications — notification dispatch
+default        — jobs standards (e-mails, traitement général)
+ai             — jobs intensifs en IA (analyse de CV, notation, résumé)
+notifications  — envoi de notifications
 ```
 
-Run workers:
+Démarrer les workers :
 ```bash
 php artisan queue:work --queue=default,notifications
 php artisan queue:work --queue=ai --timeout=120
@@ -282,22 +282,22 @@ php artisan queue:work --queue=ai --timeout=120
 
 ---
 
-## Testing
+## Tests
 
 ```bash
-# Run all tests
+# Lancer tous les tests
 php artisan test
 
-# Run specific suites
+# Lancer des suites spécifiques
 php artisan test --testsuite=Unit
 php artisan test --testsuite=Feature
 
-# Run with coverage
+# Lancer avec couverture de code
 php artisan test --coverage
 ```
 
 ---
 
-## License
+## Licence
 
-Proprietary. All rights reserved.
+Propriétaire. Tous droits réservés.

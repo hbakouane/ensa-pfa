@@ -72,7 +72,7 @@ class JobController extends Controller
         $job = $action->execute($validated);
 
         return redirect()->route('jobs.show', $job)
-            ->with('success', 'Job posting created successfully.');
+            ->with('success', 'Offre d\'emploi créée avec succès.');
     }
 
     public function show(JobPosting $job): Response
@@ -143,7 +143,7 @@ class JobController extends Controller
             }
         }
 
-        return back()->with('success', 'Job posting updated successfully.');
+        return back()->with('success', 'Offre d\'emploi mise à jour avec succès.');
     }
 
     public function destroy(JobPosting $job)
@@ -151,27 +151,27 @@ class JobController extends Controller
         $job->delete();
 
         return redirect()->route('jobs.index')
-            ->with('success', 'Job posting deleted successfully.');
+            ->with('success', 'Offre d\'emploi supprimée avec succès.');
     }
 
     public function publish(JobPosting $job, PublishJobAction $action)
     {
         $action->execute($job);
 
-        return back()->with('success', 'Job posting published successfully.');
+        return back()->with('success', 'Offre d\'emploi publiée avec succès.');
     }
 
     public function close(JobPosting $job)
     {
         $job->update(['status' => 'closed']);
 
-        return back()->with('success', 'Job posting closed successfully.');
+        return back()->with('success', 'Offre d\'emploi clôturée avec succès.');
     }
 
     public function archive(JobPosting $job)
     {
         $job->update(['status' => 'archived']);
 
-        return back()->with('success', 'Job posting archived successfully.');
+        return back()->with('success', 'Offre d\'emploi archivée avec succès.');
     }
 }

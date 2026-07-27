@@ -20,7 +20,7 @@ const company = computed(() => page.props.company ?? {});
                         {{ (company.name ?? 'R').charAt(0).toUpperCase() }}
                     </div>
                     <span class="text-lg font-semibold text-slate-900">
-                        {{ company.name ?? 'Careers' }}
+                        {{ company.name ?? 'Carrières' }}
                     </span>
                 </Link>
 
@@ -29,7 +29,7 @@ const company = computed(() => page.props.company ?? {});
                         href="/"
                         class="text-sm font-medium text-slate-600 transition-colors hover:text-indigo-600"
                     >
-                        Open Positions
+                        Postes ouverts
                     </Link>
                 </nav>
             </div>
@@ -50,9 +50,9 @@ const company = computed(() => page.props.company ?? {});
                 <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
                     <div class="flex items-center gap-2 text-sm text-slate-500">
                         <span>&copy; {{ new Date().getFullYear() }}</span>
-                        <span>{{ company.name ?? 'Company' }}</span>
+                        <span>{{ company.name ?? 'Entreprise' }}</span>
                         <span class="text-slate-300">|</span>
-                        <span>Powered by RecruitAI</span>
+                        <span>Propulsé par RecruitAI</span>
                     </div>
 
                     <div class="flex items-center gap-6">
@@ -60,13 +60,13 @@ const company = computed(() => page.props.company ?? {});
                             href="#"
                             class="text-sm text-slate-500 transition-colors hover:text-slate-700"
                         >
-                            Privacy Policy
+                            Politique de confidentialité
                         </a>
                         <a
                             href="#"
                             class="text-sm text-slate-500 transition-colors hover:text-slate-700"
                         >
-                            Terms of Service
+                            Conditions d'utilisation
                         </a>
                     </div>
                 </div>

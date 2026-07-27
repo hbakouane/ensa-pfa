@@ -34,7 +34,7 @@ function submit() {
 
 <template>
     <GuestLayout>
-        <Head title="Accept Invitation" />
+        <Head title="Accepter l'invitation" />
 
         <div class="mb-6 text-center">
             <div
@@ -56,20 +56,20 @@ function submit() {
             </div>
 
             <h1 class="text-xl font-bold text-slate-900">
-                You've been invited
+                Vous avez été invité(e)
             </h1>
             <p class="mt-1 text-sm text-slate-500">
-                Join
+                Rejoindre
                 <span class="font-semibold text-indigo-600">
-                    {{ invitation.company_name ?? 'the team' }}
+                    {{ invitation.company_name ?? "l'équipe" }}
                 </span>
-                on RecruitAI
+                sur RecruitAI
             </p>
         </div>
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Your Name" />
+                <InputLabel for="name" value="Votre nom" />
                 <TextInput
                     id="name"
                     v-model="form.name"
@@ -83,7 +83,7 @@ function submit() {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="E-mail" />
                 <TextInput
                     id="email"
                     v-model="form.email"
@@ -100,20 +100,20 @@ function submit() {
                     v-if="invitation.email"
                     class="mt-1 text-xs text-slate-400"
                 >
-                    This email was specified in your invitation and cannot be
-                    changed.
+                    Cet e-mail a été spécifié dans votre invitation et ne peut pas
+                    être modifié.
                 </p>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Mot de passe" />
                 <TextInput
                     id="password"
                     v-model="form.password"
                     type="password"
                     class="mt-1 block w-full"
                     required
-                    placeholder="Minimum 8 characters"
+                    placeholder="Minimum 8 caractères"
                 />
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
@@ -121,7 +121,7 @@ function submit() {
             <div class="mt-4">
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
+                    value="Confirmer le mot de passe"
                 />
                 <TextInput
                     id="password_confirmation"
@@ -129,7 +129,7 @@ function submit() {
                     type="password"
                     class="mt-1 block w-full"
                     required
-                    placeholder="Repeat your password"
+                    placeholder="Répétez votre mot de passe"
                 />
                 <InputError
                     class="mt-2"
@@ -143,7 +143,7 @@ function submit() {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Accept Invitation & Join
+                    Accepter l'invitation et rejoindre
                 </PrimaryButton>
             </div>
         </form>

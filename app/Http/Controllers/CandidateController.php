@@ -78,7 +78,7 @@ class CandidateController extends Controller
         $candidate = $action->execute($validated);
 
         return redirect()->route('candidates.show', $candidate)
-            ->with('success', 'Candidate created successfully.');
+            ->with('success', 'Candidat créé avec succès.');
     }
 
     public function show(Candidate $candidate): Response

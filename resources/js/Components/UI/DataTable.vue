@@ -13,7 +13,7 @@ const props = defineProps({
     },
     emptyMessage: {
         type: String,
-        default: 'No data available.',
+        default: 'Aucune donnée disponible.',
     },
 });
 

@@ -65,7 +65,7 @@ function closeUserMenu() {
                     </svg>
                     <input
                         type="text"
-                        placeholder="Search... (Cmd+K)"
+                        placeholder="Rechercher... (Cmd+K)"
                         readonly
                         class="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm text-slate-600 placeholder-slate-400 transition-colors hover:border-slate-300 focus:border-indigo-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-100"
                     />
@@ -189,7 +189,7 @@ function closeUserMenu() {
                                     d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
                                 />
                             </svg>
-                            Profile
+                            Profil
                         </Link>
 
                         <Link
@@ -214,7 +214,7 @@ function closeUserMenu() {
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                                 />
                             </svg>
-                            Settings
+                            Paramètres
                         </Link>
 
                         <div class="my-1 border-t border-slate-100"></div>
@@ -236,7 +236,7 @@ function closeUserMenu() {
                                     d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
                                 />
                             </svg>
-                            Log out
+                            Se déconnecter
                         </button>
                     </div>
                 </Transition>

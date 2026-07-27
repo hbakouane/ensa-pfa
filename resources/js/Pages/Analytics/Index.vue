@@ -39,16 +39,16 @@ onMounted(async () => {
 <template>
     <AppLayout>
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-slate-900">Analytics</h1>
+            <h1 class="text-2xl font-bold text-slate-900">Analytique</h1>
             <p class="mt-1 text-sm text-slate-500">
-                Track your recruiting performance and hiring metrics.
+                Suivez vos performances de recrutement et vos indicateurs d'embauche.
             </p>
         </div>
 
         <!-- Metric Cards -->
         <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <MetricCard
-                title="Open Jobs"
+                title="Offres ouvertes"
                 :value="overview.active_jobs"
             >
                 <template #icon>
@@ -59,7 +59,7 @@ onMounted(async () => {
             </MetricCard>
 
             <MetricCard
-                title="Active Candidates"
+                title="Candidats actifs"
                 :value="overview.total_candidates"
             >
                 <template #icon>
@@ -70,9 +70,9 @@ onMounted(async () => {
             </MetricCard>
 
             <MetricCard
-                title="Applications"
+                title="Candidatures"
                 :value="overview.applications_this_period"
-                :subtitle="`${overview.total_applications} total`"
+                :subtitle="`${overview.total_applications} au total`"
             >
                 <template #icon>
                     <svg class="h-6 w-6 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -82,9 +82,9 @@ onMounted(async () => {
             </MetricCard>
 
             <MetricCard
-                title="Avg Time to Hire"
-                :value="overview.average_score ? `${overview.conversion_rate}%` : 'N/A'"
-                :subtitle="`${overview.hires_this_period} hires this period`"
+                title="Délai moyen d'embauche"
+                :value="overview.average_score ? `${overview.conversion_rate}%` : 'N/D'"
+                :subtitle="`${overview.hires_this_period} embauches cette période`"
             >
                 <template #icon>
                     <svg class="h-6 w-6 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -98,7 +98,7 @@ onMounted(async () => {
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- Pipeline Funnel -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Pipeline Funnel</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">Entonnoir du pipeline</h2>
                 <div v-if="loading" class="flex h-64 items-center justify-center">
                     <div class="h-8 w-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600"></div>
                 </div>
@@ -110,7 +110,7 @@ onMounted(async () => {
 
             <!-- Time to Hire Trend -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Time to Hire Trend</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">Tendance du délai d'embauche</h2>
                 <div v-if="loading" class="flex h-64 items-center justify-center">
                     <div class="h-8 w-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600"></div>
                 </div>
@@ -122,7 +122,7 @@ onMounted(async () => {
 
             <!-- Source Breakdown -->
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
-                <h2 class="mb-4 text-lg font-semibold text-slate-900">Candidate Sources</h2>
+                <h2 class="mb-4 text-lg font-semibold text-slate-900">Sources des candidats</h2>
                 <div v-if="loading" class="flex h-64 items-center justify-center">
                     <div class="h-8 w-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600"></div>
                 </div>

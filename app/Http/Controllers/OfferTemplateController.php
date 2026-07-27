@@ -28,7 +28,7 @@ class OfferTemplateController extends Controller
 
         OfferTemplate::create($validated);
 
-        return back()->with('success', 'Offer template created successfully.');
+        return back()->with('success', 'Modèle d\'offre créé avec succès.');
     }
 
     public function update(OfferTemplate $template, Request $request)
@@ -41,13 +41,13 @@ class OfferTemplateController extends Controller
 
         $template->update($validated);
 
-        return back()->with('success', 'Offer template updated successfully.');
+        return back()->with('success', 'Modèle d\'offre mis à jour avec succès.');
     }
 
     public function destroy(OfferTemplate $template)
     {
         $template->delete();
 
-        return back()->with('success', 'Offer template deleted successfully.');
+        return back()->with('success', 'Modèle d\'offre supprimé avec succès.');
     }
 }

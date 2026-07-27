@@ -28,7 +28,7 @@ class MentionedInCommentNotification extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        $commenterName = $this->comment->user->name ?? 'Someone';
+        $commenterName = $this->comment->user->name ?? 'Quelqu\'un';
         $snippet = str()->limit($this->comment->body, 100);
 
         return [
@@ -37,7 +37,7 @@ class MentionedInCommentNotification extends Notification implements ShouldQueue
             'commentable_type' => $this->comment->commentable_type,
             'commentable_id' => $this->comment->commentable_id,
             'commenter_name' => $commenterName,
-            'message' => $commenterName.' mentioned you in a comment: "'.$snippet.'"',
+            'message' => $commenterName.' vous a mentionné dans un commentaire : "'.$snippet.'"',
         ];
     }
 }

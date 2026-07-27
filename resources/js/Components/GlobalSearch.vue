@@ -14,14 +14,14 @@ const allResults = computed(() => {
     const items = [];
 
     if (results.value.jobs.length) {
-        items.push({ type: 'header', label: 'Jobs' });
+        items.push({ type: 'header', label: 'Offres d\'emploi' });
         results.value.jobs.forEach(job => {
             items.push({ type: 'job', ...job });
         });
     }
 
     if (results.value.candidates.length) {
-        items.push({ type: 'header', label: 'Candidates' });
+        items.push({ type: 'header', label: 'Candidats' });
         results.value.candidates.forEach(candidate => {
             items.push({ type: 'candidate', ...candidate });
         });
@@ -140,7 +140,7 @@ onUnmounted(() => {
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <span>Search...</span>
+            <span>Rechercher...</span>
             <kbd class="ml-2 hidden rounded border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-xs font-medium text-slate-400 sm:inline-block">
                 {{ navigator?.platform?.includes('Mac') ? '&#8984;' : 'Ctrl' }}K
             </kbd>
@@ -172,7 +172,7 @@ onUnmounted(() => {
                                 ref="searchInput"
                                 v-model="query"
                                 type="text"
-                                placeholder="Search jobs, candidates..."
+                                placeholder="Rechercher des offres, candidats..."
                                 class="h-12 w-full border-0 bg-transparent text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-0"
                                 @keydown.down.prevent="handleArrowDown"
                                 @keydown.up.prevent="handleArrowUp"
@@ -191,12 +191,12 @@ onUnmounted(() => {
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                                 </svg>
-                                <span class="ml-2 text-sm text-slate-500">Searching...</span>
+                                <span class="ml-2 text-sm text-slate-500">Recherche en cours...</span>
                             </div>
 
                             <!-- Empty state -->
                             <div v-else-if="query.length >= 2 && !hasResults" class="px-4 py-8 text-center">
-                                <p class="text-sm text-slate-500">No results found for "{{ query }}"</p>
+                                <p class="text-sm text-slate-500">Aucun résultat trouvé pour "{{ query }}"</p>
                             </div>
 
                             <!-- Results list -->
@@ -260,7 +260,7 @@ onUnmounted(() => {
 
                             <!-- Initial state -->
                             <div v-else-if="query.length < 2" class="px-4 py-8 text-center">
-                                <p class="text-sm text-slate-500">Start typing to search across jobs and candidates...</p>
+                                <p class="text-sm text-slate-500">Commencez à taper pour rechercher parmi les offres et les candidats...</p>
                             </div>
                         </div>
 
@@ -269,11 +269,11 @@ onUnmounted(() => {
                             <div class="flex items-center gap-2 text-xs text-slate-400">
                                 <kbd class="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-medium">&uarr;</kbd>
                                 <kbd class="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-medium">&darr;</kbd>
-                                <span>to navigate</span>
+                                <span>pour naviguer</span>
                             </div>
                             <div class="flex items-center gap-2 text-xs text-slate-400">
                                 <kbd class="rounded border border-slate-200 bg-white px-1.5 py-0.5 font-medium">&crarr;</kbd>
-                                <span>to select</span>
+                                <span>pour sélectionner</span>
                             </div>
                         </div>
                     </div>

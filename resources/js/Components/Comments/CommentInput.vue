@@ -53,7 +53,7 @@ function onKeydown(event) {
             <textarea
                 v-model="form.body"
                 :rows="parentId ? 2 : 3"
-                :placeholder="parentId ? 'Write a reply...' : 'Add a comment...'"
+                :placeholder="parentId ? 'Écrire une réponse...' : 'Ajouter un commentaire...'"
                 class="block w-full rounded-lg border border-slate-300 px-3 py-2 pr-20 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
                 :class="{ 'border-red-300 focus:border-red-500 focus:ring-red-200': form.errors.body }"
                 @keydown="onKeydown"
@@ -76,7 +76,7 @@ function onKeydown(event) {
             {{ form.errors.body }}
         </p>
         <p class="mt-1 text-xs text-slate-400">
-            Press <kbd class="rounded bg-slate-100 px-1 py-0.5 text-[10px] font-mono text-slate-500">Ctrl+Enter</kbd> to submit
+            Appuyez sur <kbd class="rounded bg-slate-100 px-1 py-0.5 text-[10px] font-mono text-slate-500">Ctrl+Entrée</kbd> pour envoyer
         </p>
     </div>
 </template>
