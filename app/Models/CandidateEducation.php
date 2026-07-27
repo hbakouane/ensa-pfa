@@ -10,6 +10,8 @@ class CandidateEducation extends Model
 {
     use HasFactory;
 
+    protected $table = 'candidate_educations';
+
     protected $guarded = ['id'];
 
     protected function casts(): array
