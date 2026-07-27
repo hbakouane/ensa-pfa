@@ -24,6 +24,7 @@
         "@tiptap/starter-kit": "^3.29.1",
         "@tiptap/vue-3": "^3.29.1",
         "chart.js": "^4.5.1",
+        "lodash": "^4.18.1",
         "pinia": "^4.0.2",
         "vue-chartjs": "^5.3.4",
         "vuedraggable": "^4.1.0"
