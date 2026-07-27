@@ -14,7 +14,12 @@ class CreateCandidateAction
             $skills = $data['skills'] ?? [];
             $experiences = $data['experiences'] ?? [];
             $educations = $data['educations'] ?? [];
-            unset($data['skills'], $data['experiences'], $data['educations']);
+            $resume = $data['resume'] ?? null;
+            unset($data['skills'], $data['experiences'], $data['educations'], $data['resume']);
+
+            if ($resume) {
+                $data['resume_path'] = $resume->store('resumes', 'local');
+            }
 
             $candidate = Candidate::create($data);
 

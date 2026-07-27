@@ -18,8 +18,8 @@ const form = useForm({
     portfolio_url: '',
     resume: null,
     skills: [],
-    experiences: [{ company: '', title: '', start_date: '', end_date: '', description: '' }],
-    educations: [{ institution: '', degree: '', field: '', start_date: '', end_date: '' }],
+    experiences: [{ company_name: '', title: '', start_date: '', end_date: '', description: '' }],
+    educations: [{ institution: '', degree: '', field_of_study: '', start_date: '', end_date: '' }],
 });
 
 const newSkill = ref('');
@@ -27,8 +27,8 @@ const resumeFileName = ref('');
 
 function addSkill() {
     const skill = newSkill.value.trim();
-    if (skill && !form.skills.includes(skill)) {
-        form.skills.push(skill);
+    if (skill && !form.skills.some(s => s.name === skill)) {
+        form.skills.push({ name: skill });
     }
     newSkill.value = '';
 }
@@ -38,7 +38,7 @@ function removeSkill(idx) {
 }
 
 function addExperience() {
-    form.experiences.push({ company: '', title: '', start_date: '', end_date: '', description: '' });
+    form.experiences.push({ company_name: '', title: '', start_date: '', end_date: '', description: '' });
 }
 
 function removeExperience(idx) {
@@ -46,7 +46,7 @@ function removeExperience(idx) {
 }
 
 function addEducation() {
-    form.educations.push({ institution: '', degree: '', field: '', start_date: '', end_date: '' });
+    form.educations.push({ institution: '', degree: '', field_of_study: '', start_date: '', end_date: '' });
 }
 
 function removeEducation(idx) {
@@ -218,7 +218,7 @@ function submit() {
                         :key="idx"
                         class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700"
                     >
-                        {{ skill }}
+                        {{ skill.name }}
                         <button
                             type="button"
                             class="ml-0.5 rounded-full p-0.5 text-indigo-400 hover:bg-indigo-100 hover:text-indigo-600"
@@ -263,10 +263,10 @@ function submit() {
 
                         <div class="grid gap-4 sm:grid-cols-2">
                             <Input
-                                v-model="exp.company"
+                                v-model="exp.company_name"
                                 label="Entreprise"
                                 placeholder="Nom de l'entreprise"
-                                :error="form.errors[`experiences.${idx}.company`]"
+                                :error="form.errors[`experiences.${idx}.company_name`]"
                             />
                             <Input
                                 v-model="exp.title"
@@ -343,10 +343,10 @@ function submit() {
                                 :error="form.errors[`educations.${idx}.degree`]"
                             />
                             <Input
-                                v-model="edu.field"
+                                v-model="edu.field_of_study"
                                 label="Domaine d'études"
                                 placeholder="Informatique"
-                                :error="form.errors[`educations.${idx}.field`]"
+                                :error="form.errors[`educations.${idx}.field_of_study`]"
                             />
                             <div class="grid grid-cols-2 gap-3">
                                 <Input

@@ -56,6 +56,7 @@ class CandidateController extends Controller
             'location' => ['nullable', 'string', 'max:255'],
             'linkedin_url' => ['nullable', 'url', 'max:255'],
             'portfolio_url' => ['nullable', 'url', 'max:255'],
+            'resume' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:10240'],
             'skills' => ['nullable', 'array'],
             'skills.*.name' => ['required_with:skills', 'string', 'max:100'],
             'skills.*.years_of_experience' => ['nullable', 'integer', 'min:0'],
