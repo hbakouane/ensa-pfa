@@ -4,6 +4,25 @@ Une application SaaS Laravel de taille moyenne à grande permettant aux entrepri
 
 ---
 
+## Captures d'écran
+
+| | |
+|---|---|
+| ![Dashboard](docs/screenshots/01-dashboard.png) | ![Liste des offres](docs/screenshots/02-jobs-list.png) |
+| Dashboard | Liste des offres |
+| ![Créer une offre](docs/screenshots/03-jobs-create.png) | ![Liste des candidats](docs/screenshots/04-candidates-list.png) |
+| Créer une offre | Liste des candidats |
+| ![Ajouter un candidat](docs/screenshots/05-candidates-create.png) | ![Entretiens](docs/screenshots/06-interviews.png) |
+| Ajouter un candidat | Entretiens |
+| ![Offres](docs/screenshots/07-offers.png) | ![Analytique](docs/screenshots/08-analytics.png) |
+| Offres | Analytique |
+| ![Profil](docs/screenshots/09-profile.png) | ![Page carrières](docs/screenshots/10-careers.png) |
+| Profil | Page carrières |
+| ![Connexion](docs/screenshots/11-login.png) | ![Inscription](docs/screenshots/12-register.png) |
+| Connexion | Inscription |
+
+---
+
 ## Stack technique
 
 | Couche | Technologie |
