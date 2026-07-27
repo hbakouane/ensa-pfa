@@ -15,7 +15,7 @@ class JobPosting extends Model
 {
     use BelongsToCompany, HasFactory, Searchable, SoftDeletes;
 
-    protected $table = 'jobs';
+    protected $table = 'job_postings';
 
     protected $guarded = ['id'];
 
